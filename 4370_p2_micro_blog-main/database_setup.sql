@@ -16,31 +16,31 @@ create table if not exists user (
     constraint userName_min_length check (char_length(trim(userName)) >= 2),
     constraint firstName_min_length check (char_length(trim(firstName)) >= 2),
     constraint lastName_min_length check (char_length(trim(lastName)) >= 2)
-)
+);
 
 -- Create post table 
 create table if not exists post (
-    postId int auto_increment,
+    postId int not null auto_increment,
     userId int not null,
     postDate date,
     postText varchar(225) not null,
 
     primary key (postId),
-    foreign key (userId)
-)
+    foreign key (userId) references user(userId)
+);
 
 -- Create comment table
 create table if not exists comment (
-    commentId int auto_increment,
+    commentId int not null auto_increment,
     postId int not null,
     userId int not null,
     commentDate date,
     commentText varchar(500),
 
-    foreign key(userId),
-    foreign key(postId),
-    primary key(commentId)
-)
+    primary key(commentId),
+    foreign key(userId) references user(userId),
+    foreign key(postId) references post(postId)
+);
 
 -- Create heart table
 create table if not exists heart (
@@ -48,9 +48,9 @@ create table if not exists heart (
     userId int not null,
 
     primary key (postId, userId),
-    foreign key(userId),
-    foreign key(postId)
-)
+    foreign key(userId) references user(userId),
+    foreign key(postId) references post(postId)
+);
 
 -- Create bookmark table
 create table if not exists bookmark (
@@ -58,9 +58,9 @@ create table if not exists bookmark (
     userId int not null,
 
     primary key (postId, userId),
-    foreign key(postId),
-    foreign key(userId),
-)
+    foreign key(postId) references post(postId),
+    foreign key(userId) references user(userId)
+);
 
 -- Create hashtag table ***
 create table if not exists hashtag (
@@ -68,8 +68,8 @@ create table if not exists hashtag (
     postId int not null,
 
     primary key(hashTag, postId),
-    foreign key(postId)
-)
+    foreign key(postId) references post(postId)
+);
 
 -- Create follow
 create table if not exists follow (
@@ -77,6 +77,6 @@ create table if not exists follow (
     followeeUserId int,
 
     primary key(followerUserId,followeeUserId),
-    foreign key(followeeUserId),
-    foreign key(followerUserId)
+    foreign key(followeeUserId) references user(userId),
+    foreign key(followerUserId) references user(userId)
 );
