@@ -1,0 +1,21 @@
+# Readme.txt file that contains the member names and their contributions, instructions on
+how to run the project and if you refer to any external resources to learn any concepts, a
+list of them
+
+#Group 10
+
+# Project contributors/contributions:
+* Codey Borrelli
+
+* Ryan Albright
+
+* Jude Mullins
+
+* Zach Bloodworth
+
+# Instructions to run the project:
+1. Navigate to the directory with the pom.xml using the terminal and run the following
+command:
+2. mvn spring-boot:run -D"spring-boot.run.jvmArguments='-Dserver.port=8081'"
+3. Open the browser and navigate to the following URL: http://localhost:8081/
+4. Create an account and login.
