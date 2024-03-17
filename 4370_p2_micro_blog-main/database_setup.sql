@@ -68,6 +68,7 @@ create table if not exists hashtag (
     postId int not null,
 
     primary key(hashTag, postId),
+    constraint hashTag_check check (hashTag like'%#%'),
     foreign key(postId) references post(postId)
 );
 
