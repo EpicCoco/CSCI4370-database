@@ -43,7 +43,7 @@ public class HashtagSearchController {
         // Filter posts based on hashtags
         List<Post> filteredPosts = allPosts.stream()
                 .filter(post -> postContainsAllHashtags(post, hashtagsList))
-                .collect(Collectors.toList()); // uh uh uh...
+                .collect(Collectors.toList());
 
         ModelAndView mv = new ModelAndView("posts_page");
         mv.addObject("posts", filteredPosts);
