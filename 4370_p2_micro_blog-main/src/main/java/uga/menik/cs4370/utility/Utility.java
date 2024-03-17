@@ -31,7 +31,7 @@ public class Utility {
         User user4 = new User("4", "Bob", "Brown");
         User user5 = new User("5", "Charlie", "Green");
         List<Post> postsWithoutComments = new ArrayList<>();
-        postsWithoutComments.add(new Post("1", "Exploring Spring Boot features",
+        postsWithoutComments.add(new Post("1", "Exploring Spring Boot features #crazy",
                 "Mar 07, 2024, 10:54 PM", user1, 10, 4, false, false));
         postsWithoutComments.add(new Post("2", "Introduction to Microservices",
                 "Mar 08, 2024, 11:00 AM", user2, 15, 6, true, true));

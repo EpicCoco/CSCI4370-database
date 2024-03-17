@@ -5,7 +5,9 @@ This is a project developed by Dr. Menik to give the students an opportunity to 
 */
 package uga.menik.cs4370.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,38 +23,41 @@ import uga.menik.cs4370.utility.Utility;
  * At this point no other URLs.
  */
 @Controller
-@RequestMapping("/hashtagsearch")
 public class HashtagSearchController {
 
-    /**
-     * This function handles the /hashtagsearch URL itself.
-     * This URL can process a request parameter with name hashtags.
-     * In the browser the URL will look something like below:
-     * http://localhost:8081/hashtagsearch?hashtags=%23amazing+%23fireworks
-     * Note: the value of the hashtags is URL encoded.
-     */
-    @GetMapping
-    public ModelAndView webpage(@RequestParam(name = "hashtags") String hashtags) {
-        System.out.println("User is searching: " + hashtags);
+    @GetMapping("/hashtagsearch")
+    public ModelAndView searchPostsByHashtags(@RequestParam(name = "hashtags") String hashtags) {
+        System.out.println("User is searching hashtags: " + hashtags);
 
-        // See notes on ModelAndView in BookmarksController.java.
+        // Split the input hashtags by space to get individual hashtags
+        String[] hashtagArray = hashtags.split(" ");
+        List<String> hashtagsList = new ArrayList<>();
+        for (String hashtag : hashtagArray) {
+            // Remove '#' symbol if present and add to the list
+            hashtagsList.add(hashtag.replace("#", ""));
+        }
+
+        // Retrieve posts from the database (replace this with your actual data retrieval logic)
+        List<Post> allPosts = Utility.createSamplePostsListWithoutComments();
+
+        // Filter posts based on hashtags
+        List<Post> filteredPosts = allPosts.stream()
+                .filter(post -> postContainsAllHashtags(post, hashtagsList))
+                .collect(Collectors.toList()); // uh uh uh...
+
         ModelAndView mv = new ModelAndView("posts_page");
+        mv.addObject("posts", filteredPosts);
 
-        // Following line populates sample data.
-        // You should replace it with actual data from the database.
-        List<Post> posts = Utility.createSamplePostsListWithoutComments();
-        mv.addObject("posts", posts);
-
-        // If an error occured, you can set the following property with the
-        // error message to show the error message to the user.
-        // String errorMessage = "Some error occured!";
-        // mv.addObject("errorMessage", errorMessage);
-
-        // Enable the following line if you want to show no content message.
-        // Do that if your content list is empty.
-        // mv.addObject("isNoContent", true);
-        
         return mv;
     }
-    
+
+    private boolean postContainsAllHashtags(Post post, List<String> hashtagsList) {
+        for (String hashtag : hashtagsList) {
+            // Check if the post content contains all hashtags in the list
+            if (!post.getContent().toLowerCase().contains("#" + hashtag.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
