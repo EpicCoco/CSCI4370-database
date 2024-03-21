@@ -7,8 +7,10 @@ package uga.menik.cs4370.controllers;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import uga.menik.cs4370.services.PeopleService;
+// My imports
+import uga.menik.cs4370.services.UserService;
+import uga.menik.cs4370.services.PostService;
+import uga.menik.cs4370.models.User;
 
 import uga.menik.cs4370.models.ExpandedPost;
 import uga.menik.cs4370.utility.Utility;
@@ -26,6 +34,15 @@ import uga.menik.cs4370.utility.Utility;
 @Controller
 @RequestMapping("/post")
 public class PostController {
+
+    private final UserService userService;
+    private final PostService postService;
+
+    @Autowired
+    public PostController(UserService userService, PostService postService) {
+        this.userService = userService;
+        this.postService = postService;
+    }
 
     /**
      * This function handles the /post/{postId} URL.
@@ -46,7 +63,8 @@ public class PostController {
 
         // Following line populates sample data.
         // You should replace it with actual data from the database.
-        List<ExpandedPost> posts = Utility.createSampleExpandedPostWithComments();
+        //List<ExpandedPost> posts = Utility.createSampleExpandedPostWithComments();
+        List<ExpandedPost> posts = List.of(postService.getPostWithComments(postId));
         mv.addObject("posts", posts);
 
         // If an error occured, you can set the following property with the
@@ -75,6 +93,16 @@ public class PostController {
         System.out.println("\tpostId: " + postId);
         System.out.println("\tcomment: " + comment);
 
+        User currentUser = userService.getLoggedInUser();
+        String userId = currentUser.getUserId();
+        try {
+            postService.makeComment(postId, userId, comment);
+            return "redirect:/post/" + postId;
+        } catch (SQLException exception) {
+            System.out.println("Comment creation error: SQL Exception");
+            System.out.println(exception.getMessage());
+        }
+
         // Redirect the user if the comment adding is a success.
         // return "redirect:/post/" + postId;
 
@@ -97,13 +125,33 @@ public class PostController {
         System.out.println("\tpostId: " + postId);
         System.out.println("\tisAdd: " + isAdd);
 
+        // BEGINNING OF MY CODE
+        User currentUser = userService.getLoggedInUser();
+        String userId = currentUser.getUserId();
+        System.out.println("CURRENT USER ID:"+ userId);
+        try {
+            if (isAdd) {
+                // attempt to add a like if the post is not currently liked by currentUser
+                postService.addLike(postId, userId);
+                return "redirect:/post/" + postId;
+            } else {
+                // attempt to remove the like if the post is currenty liked
+                postService.removeLike(postId, userId);
+                return "redirect:/post/" + postId;
+            }
+        } catch (SQLException exception) {
+            System.out.println("SQL ERROR");
+            System.out.println(exception.getMessage());
+            // Redirect the user with an error message if there was an error.
+            String message = URLEncoder.encode("Failed to (un)like the post. Please try again.",
+                StandardCharsets.UTF_8);
+            return "redirect:/post/" + postId + "?error=" + message;
+        }
+        
         // Redirect the user if the comment adding is a success.
         // return "redirect:/post/" + postId;
-
-        // Redirect the user with an error message if there was an error.
-        String message = URLEncoder.encode("Failed to (un)like the post. Please try again.",
-                StandardCharsets.UTF_8);
-        return "redirect:/post/" + postId + "?error=" + message;
+        
+        // END OF MY CODE
     }
 
     /**
@@ -119,13 +167,27 @@ public class PostController {
         System.out.println("\tpostId: " + postId);
         System.out.println("\tisAdd: " + isAdd);
 
-        // Redirect the user if the comment adding is a success.
-        // return "redirect:/post/" + postId;
-
-        // Redirect the user with an error message if there was an error.
-        String message = URLEncoder.encode("Failed to (un)bookmark the post. Please try again.",
+        // BEGINNING OF MY CODE
+        User currentUser = userService.getLoggedInUser();
+        String userId = currentUser.getUserId();
+        try {
+            if (isAdd) {
+                // attempt to add a like if the post is not currently bookmarked by currentUser
+                postService.addBookmark(postId, userId);
+                return "redirect:/post/" + postId;
+            } else {
+                // attempt to remove the like if the post is currenty bookmarked
+                postService.removeBookmark(postId, userId);
+                return "redirect:/post/" + postId;
+            }
+        } catch (SQLException exception) {
+            System.out.println("SQL ERROR");
+            System.out.println(exception.getMessage());
+            // Redirect the user with an error message if there was an error.
+            String message = URLEncoder.encode("Failed to (un)bookmark the post. Please try again.",
                 StandardCharsets.UTF_8);
-        return "redirect:/post/" + postId + "?error=" + message;
+            return "redirect:/post/" + postId + "?error=" + message;
+        }
     }
 
 }
