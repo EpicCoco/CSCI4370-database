@@ -102,6 +102,37 @@ public class PostService {
     }
 
     /**
+     * The query "select * from post" gets all posts from the database.
+     * This method is used by the HashtagSearchController to get all
+     * posts, where it then further filters them based on the 
+     * hashtag filter provided. 
+     */
+    public List<Post> getAllPosts() throws SQLException{
+        final String sql = "select * from post";
+        List<Post> posts = new ArrayList<Post>();
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // id content date user
+                    String postId = rs.getString("postId");
+                    String postContent = rs.getString("postText");
+                    String postDate = rs.getTimestamp("postDate").toString();
+                    User postUser = userService.getUserById(rs.getInt("userId"));
+                    int numHearts = getHeartsCount(postId);
+                    int numComments = getCommentsCount(postId);
+                    boolean isHearted = getIsHearted(postId, userService.getLoggedInUser().getUserId());
+                    boolean isBookmarked = getIsBookmarked(postId, userService.getLoggedInUser().getUserId());
+                    posts.add(new Post(postId, postContent, postDate, postUser, numHearts, numComments, isHearted, isBookmarked));
+                }
+            }
+            System.out.println("Num posts:");
+            System.out.println(posts.size());
+            return posts;
+        }
+    }
+
+    /**
      * 
      * @param postId the id of the post to calculate like count for
      * @return
