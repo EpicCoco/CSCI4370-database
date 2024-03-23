@@ -5,6 +5,7 @@ This is a project developed by Dr. Menik to give the students an opportunity to 
 */
 package uga.menik.cs4370.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import uga.menik.cs4370.models.Post;
+import uga.menik.cs4370.models.User;
 import uga.menik.cs4370.utility.Utility;
+import uga.menik.cs4370.services.PostService;
+import uga.menik.cs4370.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Handles /bookmarks and its sub URLs.
@@ -26,30 +31,30 @@ import uga.menik.cs4370.utility.Utility;
 @RequestMapping("/bookmarks")
 public class BookmarksController {
 
-    /**
-     * /bookmarks URL itself is handled by this.
-     */
+    private final UserService userService;
+    private final PostService postService;
+
+    @Autowired
+    public BookmarksController(UserService userService, PostService postService) {
+        this.userService = userService;
+        this.postService = postService;
+    }
+
     @GetMapping
     public ModelAndView webpage() {
         // posts_page is a mustache template from src/main/resources/templates.
         // ModelAndView class enables initializing one and populating placeholders
         // in the template using Java objects assigned to named properties.
         ModelAndView mv = new ModelAndView("posts_page");
-
-        // Following line populates sample data.
-        // You should replace it with actual data from the database.
-        List<Post> posts = Utility.createSamplePostsListWithoutComments();
-        mv.addObject("posts", posts);
-
-        // If an error occured, you can set the following property with the
-        // error message to show the error message to the user.
-        // String errorMessage = "Some error occured!";
-        // mv.addObject("errorMessage", errorMessage);
-
-        // Enable the following line if you want to show no content message.
-        // Do that if your content list is empty.
-        // mv.addObject("isNoContent", true);
-
+        User currentUser = userService.getLoggedInUser();
+        String userId = currentUser.getUserId();
+        try {
+            List<Post> bookmarkedPosts = postService.getBookmarkedPosts(userId);
+            mv.addObject("posts", bookmarkedPosts);
+        } catch (SQLException e) {
+            // Handle SQL exception
+            mv.addObject("errorMessage", "Failed to fetch bookmarked posts.");
+        }
         return mv;
     }
     

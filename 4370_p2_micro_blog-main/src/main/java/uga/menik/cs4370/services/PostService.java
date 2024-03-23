@@ -74,7 +74,7 @@ public class PostService {
      * user, which is used to check for any posts from users that they follow.
      */
     public List<Post> getPostsFromFollowed(int userId) throws SQLException{
-        final String sql = "select * from post, follow where follow.followerUserId = ? and post.userId = follow.followeeUserId";
+        final String sql = "select * from post, follow where follow.followerUserId = ? and post.userId = follow.followeeUserId ORDER BY post.postDate DESC"; // ryan change here "order by"
         List<Post> posts = new ArrayList<Post>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -351,5 +351,30 @@ public class PostService {
             throw new SQLException();
         }
     }
-
+    // test ryan
+    public List<Post> getBookmarkedPosts(String userId) throws SQLException {
+        final String sql = "SELECT * FROM post INNER JOIN bookmark ON post.postId = bookmark.postId WHERE bookmark.userId = ?";
+        List<Post> bookmarkedPosts = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Retrieve post details from the result set
+                    String postId = rs.getString("postId");
+                    String postContent = rs.getString("postText");
+                    String postDate = rs.getTimestamp("postDate").toString();
+                    User postUser = userService.getUserById(rs.getInt("userId"));
+                    int numHearts = getHeartsCount(postId);
+                    int numComments = getCommentsCount(postId);
+                    boolean isHearted = getIsHearted(postId, userId);
+                    boolean isBookmarked = getIsBookmarked(postId, userId);
+                    // Create Post object and add to list
+                    bookmarkedPosts.add(new Post(postId, postContent, postDate, postUser, numHearts, numComments, isHearted, isBookmarked));
+                }
+            }
+        }
+        return bookmarkedPosts;
+    }
+    
 }
