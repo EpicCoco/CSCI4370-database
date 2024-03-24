@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
@@ -17,9 +18,12 @@ import java.util.Date;
 import javax.sql.DataSource;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
+import org.springframework.web.context.annotation.SessionScope;
+
 import uga.menik.cs4370.models.FollowableUser;
 import uga.menik.cs4370.models.BasicPost;
 import uga.menik.cs4370.models.Post;
@@ -31,10 +35,10 @@ import uga.menik.cs4370.services.UserService;
  * This service contains people related functions.
  */
 @Service
+@SessionScope
 public class PeopleService {
     
     private final DataSource dataSource;
-
 
     public PeopleService(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -47,7 +51,7 @@ public class PeopleService {
      */
     public List<FollowableUser> getFollowableUsers(String userIdToExclude) throws SQLException{
         // Write an SQL query to find the users that are not the current user.
-        final String sql = "select * from user where userId != ?";
+
         // Run the query with a datasource.
         // See UserService.java to see how to inject DataSource instance and
         // use it to run a query.
@@ -81,6 +85,8 @@ public class PeopleService {
         } //try (#1)
         // Replace the following line and return the list you created.
         return followableUsers;
+
+       // return Utility.createSampleFollowableUserList();
     }
 
     public Boolean changeFollowing(String followerId, String followeeId, Boolean isFollow) throws SQLException{

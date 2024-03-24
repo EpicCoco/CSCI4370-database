@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.SQLException;
+import uga.menik.cs4370.services.PostService;
+import uga.menik.cs4370.services.UserService;
+
 import uga.menik.cs4370.models.Post;
+import uga.menik.cs4370.models.User;
 import uga.menik.cs4370.utility.Utility;
 
 /**
@@ -25,6 +31,15 @@ import uga.menik.cs4370.utility.Utility;
 @Controller
 @RequestMapping
 public class HomeController {
+
+    private final PostService postService;
+    private final UserService userService;
+
+    @Autowired
+    public HomeController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+    }
 
     /**
      * This is the specific function that handles the root URL itself.
@@ -40,8 +55,16 @@ public class HomeController {
 
         // Following line populates sample data.
         // You should replace it with actual data from the database.
-        List<Post> posts = Utility.createSamplePostsListWithoutComments();
-        mv.addObject("posts", posts);
+        //List<Post> posts = Utility.createSamplePostsListWithoutComments();
+        User currentUser = userService.getLoggedInUser();
+        try {
+            List<Post> posts = postService.getPostsFromFollowed(Integer.parseInt(currentUser.getUserId()));
+            mv.addObject("posts", posts);
+            System.out.println("Added posts successfully");
+        } catch (SQLException exception) {
+            System.out.println("SQL ERROR");
+            System.out.println(exception.getMessage());
+        }
 
         // If an error occured, you can set the following property with the
         // error message to show the error message to the user.
@@ -67,7 +90,19 @@ public class HomeController {
     @PostMapping("/createpost")
     public String createPost(@RequestParam(name = "posttext") String postText) {
         System.out.println("User is creating post: " + postText);
-
+        
+        // BEGINNING OF MY CODE
+        User currentUser = userService.getLoggedInUser();
+        String userId = currentUser.getUserId();
+        try {
+            System.out.println("Post statement 1");
+            postService.makePost(userId, postText);
+            return "redirect:/";
+        } catch (SQLException exception) {
+            System.out.println("Post statement error: SQL Exception");
+            System.out.println(exception.getMessage());
+        }
+        // postid, userid, date, text
         // Redirect the user if the post creation is a success.
         // return "redirect:/";
 

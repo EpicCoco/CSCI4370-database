@@ -131,4 +131,20 @@ public class UserService {
         }
     }
 
+    public User getUserById(int userId) throws SQLException {
+        final String sql = "select * from user where userId = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Following lines replace the placeholders 1-4 with values.
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                rs.next();
+                String userIdStr = Integer.toString(userId);
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                return new User(userIdStr, firstName, lastName, "test");
+            }
+        }
+    }
+
 }
