@@ -30,15 +30,14 @@ import uga.menik.cs4370.utility.Utility;
 @RequestMapping("/people")
 public class PeopleController {
 
-    // Inject UserService and PeopleService instances.
-    // See LoginController.java to see how to do this.
-    // Hint: Add a constructor with @Autowired annotation.
+    private final UserService userService;
     private final PeopleService peopleService;
 
     @Autowired
     public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
     }
+
     /**
      * Serves the /people web page.
      * 
@@ -52,12 +51,16 @@ public class PeopleController {
         ModelAndView mv = new ModelAndView("people_page");
 
         // Following line populates sample data.
-        // You should replace it with actual data from the database.
-        // Use the PeopleService instance to find followable users.
         // Use UserService to access logged in userId to exclude.
         //List<FollowableUser> followableUsers = Utility.createSampleFollowableUserList();
         try {
-            List<FollowableUser> followableUsers = peopleService.getFollowableUsers();
+            String userId = userService.getLoggedInUser().getUserId();
+            List<FollowableUser> followableUsers = peopleService.getFollowableUsers(userId);
+            for (FollowableUser fl: followableUsers) {
+                System.out.println("last Active date: " + fl.isLastActiveDate());
+            }
+            //System.out.println(followableUser
+
             mv.addObject("users", followableUsers);
         } catch(SQLException exception) {
             System.out.println("Error");
@@ -89,19 +92,30 @@ public class PeopleController {
      */
     @GetMapping("{userId}/follow/{isFollow}")
     public String followUnfollowUser(@PathVariable("userId") String userId,
-            @PathVariable("isFollow") Boolean isFollow) {
+            @PathVariable("isFollow") Boolean isFollow) throws SQLException{
         System.out.println("User is attempting to follow/unfollow a user:");
         System.out.println("\tuserId: " + userId);
         System.out.println("\tisFollow: " + isFollow);
 
-        
-        // Redirect the user if the comment adding is a success.
-        // return "redirect:/people";
-
-        // Redirect the user with an error message if there was an error.
-        String message = URLEncoder.encode("Failed to (un)follow the user. Please try again.",
+        try {
+            String currentUser = userService.getLoggedInUser().getUserId();
+            Boolean worked = peopleService.changeFollowing(currentUser, userId, peopleService.followedInTable(currentUser, userId));
+            System.out.println("\tDatabase Changed: " + worked);
+            return "redirect:/people";
+        } catch (Error e) {
+            System.out.println("Follow Database Not Changed Due To Error");
+            String message = URLEncoder.encode("Failed to (un)follow the user. Please try again.",
                 StandardCharsets.UTF_8);
         return "redirect:/people?error=" + message;
+        }
+        
+        // Redirect the user if the comment adding is a success.
+
+        
+        // Redirect the user with an error message if there was an error.
+        
     }
 
+
 }
+
