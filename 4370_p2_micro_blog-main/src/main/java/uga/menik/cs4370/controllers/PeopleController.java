@@ -34,7 +34,8 @@ public class PeopleController {
     private final PeopleService peopleService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, UserService userService) {
+        this.userService = userService;
         this.peopleService = peopleService;
     }
 
