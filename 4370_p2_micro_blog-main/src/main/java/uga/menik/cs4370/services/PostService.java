@@ -322,6 +322,7 @@ public class PostService {
                     String commentId = rs.getString("commentId");
                     String commentText = rs.getString("commentText");
                     String commentDate = rs.getTimestamp("commentDate").toString();
+                    commentDate = formatDate(commentDate);
                     User commentUser = userService.getUserById(rs.getInt("userId"));
                     postComments.add(new Comment(commentId, commentText, commentDate, commentUser));
                 }
@@ -342,6 +343,7 @@ public class PostService {
                     // id content date user
                     String postContent = rs.getString("postText");
                     String postDate = rs.getTimestamp("postDate").toString();
+                    postDate = formatDate(postDate);
                     User postUser = userService.getUserById(rs.getInt("userId"));
                     // need to add functionality which provides accurate values for hearts, comments, and is hearted and is bookmarked
                     int numHearts = getHeartsCount(postId);
@@ -369,6 +371,7 @@ public class PostService {
                     String postId = rs.getString("postId");
                     String postContent = rs.getString("postText");
                     String postDate = rs.getTimestamp("postDate").toString();
+                    postDate = formatDate(postDate);
                     User postUser = userService.getUserById(rs.getInt("userId"));
                     int numHearts = getHeartsCount(postId);
                     int numComments = getCommentsCount(postId);
