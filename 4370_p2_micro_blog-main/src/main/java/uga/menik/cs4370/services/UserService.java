@@ -53,7 +53,11 @@ public class UserService {
      * Returns true if authentication is succesful. False otherwise.
      */
     public boolean authenticate(String username, String password) throws SQLException {
-        // Note the ? mark in the query. It is a place holder that we will later replace.
+        // This query gets all users OTHER THAN the user passed in by "username" parameter
+        // this query is used by the authenticate route
+        // The route that uses this is the authenticate route, which passes in the 
+        // username and password and checks to see if that exists in the database.
+        // http://localhost:8081/login
         final String sql = "select * from user where username = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -114,7 +118,10 @@ public class UserService {
      */
     public boolean registerUser(String username, String password, String firstName, String lastName)
             throws SQLException {
-        // Note the ? marks in the SQL statement. They are placeholders like mentioned above.
+        // This sql query inserts a new user into the database.
+        // It is used to register a new user to the platform
+        // The route that uses it is register, which passes in all of the user info
+        // http://localhost:8081/register
         final String registerSql = "insert into user (username, password, firstName, lastName) values (?, ?, ?, ?)";
 
         try (Connection conn = dataSource.getConnection();
@@ -132,6 +139,12 @@ public class UserService {
     }
 
     public User getUserById(int userId) throws SQLException {
+        //this sql query selects one specific user by their userid
+        // from the database 
+        // it is used by post and profile pages to get specific user
+        // info. 
+        //EX URL: http://localhost:8081/profile/1
+        //The userid here is "1"
         final String sql = "select * from user where userId = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {

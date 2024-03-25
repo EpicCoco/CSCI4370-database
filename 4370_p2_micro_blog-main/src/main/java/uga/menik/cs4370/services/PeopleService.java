@@ -50,7 +50,13 @@ public class PeopleService {
      * with id userIdToExclude.
      */
     public List<FollowableUser> getFollowableUsers(String userIdToExclude) throws SQLException{
-        // Write an SQL query to find the users that are not the current user.
+        // This sql query is used to select all users except the user specified
+        // in the parameter, which is meant to be the logged in user. This
+        // is for the list of all followable users, and it does not make
+        // sense for a user to be able to follow themselves.
+        // This is used on the "people" route to get all followable users
+        // http://localhost:8081/people
+        // It is a broad "get all users" post so it doesn't have any parameters in the URL
         final String sql = "select * from user where userId != ?";
         // Run the query with a datasource.
         // See UserService.java to see how to inject DataSource instance and
@@ -92,9 +98,22 @@ public class PeopleService {
     public Boolean changeFollowing(String followerId, String followeeId, Boolean isFollow) throws SQLException{
         String sql ="";
         if (isFollow) {
+            //This query removes a follow from a user. It takes in the follower and
+            // followee and removes the relationship between the two.
+            // It is used by the route:
+            // localhost:8081/people/{userId}/follow/{isFollow}
+            // where userId is the current, logged in user and isFollow is the 
+            // person being unfollowed
+            //For the user, they will see the route
+            // http://localhost:8081/people
             sql = "DELETE FROM follow WHERE followerUserId = ? AND followeeUserId = ?";
-
         } else {
+            //This query does the opposite of the previous one - it adds a new 
+            // following to the database by establishing a relationship
+            // between the follower and followee in the follow table.
+            // It also uses the same route
+            // localhost:8081/people/{userId}/follow/{isFollow}
+            // isFollow represents the person being unfollowed 
             sql = "INSERT INTO follow (followerUserId, followeeUserId) VALUES (?, ?)";
         }
 
@@ -109,6 +128,14 @@ public class PeopleService {
     }
     
     public Boolean followedInTable(String followerId, String followeeId) throws SQLException{
+        //This sql query gets the number of followers a user has
+        // under the criteria that the logged in user is the 
+        // follower, and checks with the followee
+        // and the code checks to see whether it's greater than
+        // zero to see if a user is followed by someone.
+        //The route that uses this is 
+        // http://localhost:8081/people
+        // to display whether a user can follow or unfollow another user.
         String sql = "select count(followerUserId) from follow where followerUserId = ? AND followeeUserId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -125,6 +152,12 @@ public class PeopleService {
     }
     
     public String lastPostDate(String userId) { //catch no exceptions here, flow out to controller
+        //This query is to get the latest post date from a user
+        // It does this by getting the max post date, which returns
+        // the latest one chronologically from a specific user.
+        //It is used on the route 
+        // http://localhost:8081/people
+        // to get all people and their latest posting date
         String sql = "select max(postDate) from post where userId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
