@@ -1,6 +1,4 @@
-# Readme.txt file that contains the member names and their contributions, instructions on
-how to run the project and if you refer to any external resources to learn any concepts, a
-list of them
+# Demo video link: https://youtu.be/dW6_U32ifDU
 
 #Group 10
 
