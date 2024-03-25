@@ -99,8 +99,8 @@ insert into follow values (3,2);
 insert into follow values (1,4);
 insert into follow values (4,3);
 
-insert into comment values (1, 3, 'So true girl', '2020-12-25 03:03:03');
-insert into comment values (3, 1, 'Woah. You are old.', '1999-03-03 03:01:02');
+insert into comment (postId, userId, commentText, commentDate) values (1, 3, 'So true girl', '2020-12-25 03:03:03');
+insert into comment (postId, userId, commentText, commentDate) values (3, 1, 'Woah. You are old.', '1999-03-03 03:01:02');
 
 insert into bookmark values (1,3);
 insert into bookmark values (2,2);
