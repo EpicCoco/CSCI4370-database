@@ -16,6 +16,8 @@ import java.util.List;
 import javax.print.attribute.standard.DateTimeAtCreation;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import uga.menik.cs4370.models.Post;
 import uga.menik.cs4370.models.ExpandedPost;
@@ -91,6 +93,9 @@ public class PostService {
                     String postId = rs.getString("postId");
                     String postContent = rs.getString("postText");
                     String postDate = rs.getTimestamp("postDate").toString();
+                    //System.out.println("POST DATE" + postDate);
+                    postDate = formatDate(postDate);
+                    //System.out.println("POST DATE" + postDate);
                     User postUser = userService.getUserById(rs.getInt("userId"));
                     // need to add functionality which provides accurate values for hearts, comments, and is hearted and is bookmarked
                     int numHearts = getHeartsCount(postId);
@@ -356,6 +361,7 @@ public class PostService {
                     String commentId = rs.getString("commentId");
                     String commentText = rs.getString("commentText");
                     String commentDate = rs.getTimestamp("commentDate").toString();
+                    commentDate = formatDate(commentDate);
                     User commentUser = userService.getUserById(rs.getInt("userId"));
                     postComments.add(new Comment(commentId, commentText, commentDate, commentUser));
                 }
@@ -379,6 +385,7 @@ public class PostService {
                     // id content date user
                     String postContent = rs.getString("postText");
                     String postDate = rs.getTimestamp("postDate").toString();
+                    postDate = formatDate(postDate);
                     User postUser = userService.getUserById(rs.getInt("userId"));
                     // need to add functionality which provides accurate values for hearts, comments, and is hearted and is bookmarked
                     int numHearts = getHeartsCount(postId);
@@ -409,6 +416,7 @@ public class PostService {
                     String postId = rs.getString("postId");
                     String postContent = rs.getString("postText");
                     String postDate = rs.getTimestamp("postDate").toString();
+                    postDate = formatDate(postDate);
                     User postUser = userService.getUserById(rs.getInt("userId"));
                     int numHearts = getHeartsCount(postId);
                     int numComments = getCommentsCount(postId);
@@ -420,6 +428,20 @@ public class PostService {
             }
         }
         return bookmarkedPosts;
+    }
+
+    public String formatDate(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Format date into desired output format
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy, hh:mm a");
+        String outputDateStr;
+        try {
+            outputDateStr = outputFormat.format(inputFormat.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return outputDateStr;
     }
     
 }

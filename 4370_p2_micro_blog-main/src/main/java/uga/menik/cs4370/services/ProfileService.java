@@ -13,6 +13,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import uga.menik.cs4370.models.FollowableUser;
 import uga.menik.cs4370.models.BasicPost;
 import uga.menik.cs4370.models.Post;
@@ -39,6 +42,7 @@ public class ProfileService {
                 while (rs.next()) {
                     String postId = rs.getString("postId");
                     String postDate = rs.getString("postDate");
+                    postDate = formatDate(postDate);
                     String postText = rs.getString("postText");
                     Boolean isHearted = isHearted(postId, userId);
                     Boolean isBookmarked = isBookmarked(postId, userId);
@@ -132,4 +136,19 @@ public class ProfileService {
             }
             return null;
     }
+
+    public String formatDate(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Format date into desired output format
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy, hh:mm a");
+        String outputDateStr;
+        try {
+            outputDateStr = outputFormat.format(inputFormat.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return outputDateStr;
+    }
+    
 }
