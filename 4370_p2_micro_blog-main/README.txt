@@ -3,13 +3,17 @@
 #Group 10
 
 # Project contributors/contributions:
-* Codey Borrelli
+* Codey Borrelli - Project organization, bug fixes, hashtag search/tagging, date formatting,
+add comments
 
-* Ryan Albright
+* Ryan Albright - Bookmark page, home page, add comments, database design, comments,
+hashtag search
 
-* Jude Mullins
+* Jude Mullins - Write dml.sql, populate database in database_setup.sql, people page,
+database design, ProfileService
 
-* Zach Bloodworth
+* Zach Bloodworth - Features of a post (like, bookmark, comment ordering), add comments,
+making posts, comments 
 
 # Instructions to run the project:
 1. Run docker container and start mysql server.
