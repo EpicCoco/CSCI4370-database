@@ -84,6 +84,8 @@ create table if not exists follow (
 
 
 -- Insert Data into the Database
+
+--For convenience, we did not hash the values we input into the user database. To actually use this webpage, sign up an account on the web page
 insert into user (username, password, firstName, lastName) values ('johnnyBoy', 'johnnyBoy1', 'Jon', 'Bon Jovi');
 insert into user (username, password, firstName, lastName) values ('mitski12', 'mitski121', 'Mitsuki', 'Laycock');
 insert into user (username, password, firstName, lastName) values ('cocoMel0n', 'c0c0', 'DadFrom', 'Cocomelon');
