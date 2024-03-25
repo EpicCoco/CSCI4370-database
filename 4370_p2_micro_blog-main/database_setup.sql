@@ -22,7 +22,7 @@ create table if not exists user (
 create table if not exists post (
     postId int not null auto_increment,
     userId int not null,
-    postDate date,
+    postDate datetime,
     postText varchar(225) not null,
 
     primary key (postId),
