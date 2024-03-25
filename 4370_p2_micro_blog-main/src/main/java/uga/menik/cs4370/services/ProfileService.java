@@ -34,6 +34,9 @@ public class ProfileService {
 
     public List<Post> postList(String userId) throws SQLException{
         List<Post> postList = new ArrayList<>();
+        /* This query selects and lists the posts of a user from most recent to oldest
+        http://localhost:8081/profile
+        */
         String sql = "select * from post where userId = ? order by postDate desc";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -59,6 +62,10 @@ public class ProfileService {
     }
 
     public Boolean isHearted(String postId, String currentUser) throws SQLException{
+        /* This sql query gets the number of hearts a post has
+
+        http://localhost:8081/bookmarks
+        */
         String sql = "select count(*) from heart where postId = ? and userId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,6 +82,9 @@ public class ProfileService {
     }
 
     public Boolean isBookmarked(String postId, String currentUser) throws SQLException {
+        /* This query counts the number of rows in the bookmark table 
+        http://localhost:8081/bookmarks
+        */
         String sql = "select count(*) from bookmark where postId = ? and userId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -91,6 +101,11 @@ public class ProfileService {
     }
 
     public int currentHeartCount(String postId) throws SQLException {
+        /* This query counts the number of hearts a user has on their post
+        http://localhost:8081/people
+        http://localhost:8081/bookmarks
+        http://localhost:8081/profile
+        */
         String sql = "select count(userId) from heart where postId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -106,6 +121,10 @@ public class ProfileService {
     }
 
     public int currentCommentCount(String postId) throws SQLException {
+        /* This query counts the number of comments of a post
+        http://localhost:8081/profile
+        http://localhost:8081/
+        */
         String sql = "select count(userId) from comment where postId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -121,6 +140,11 @@ public class ProfileService {
     }
 
     public User returnUserInfo(String userId) throws SQLException {
+        /* This query gets the first name and last name of a user
+        http://localhost:8081/profile
+        http://localhost:8081/
+        http://localhost:8081/people
+        */
         String sql = "select firstname, lastname from user where userId = ?";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
