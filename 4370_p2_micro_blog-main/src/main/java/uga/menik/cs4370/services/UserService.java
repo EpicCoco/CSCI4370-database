@@ -142,7 +142,7 @@ public class UserService {
                 String userIdStr = Integer.toString(userId);
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                return new User(userIdStr, firstName, lastName, "test");
+                return new User(userIdStr, firstName, lastName);
             }
         }
     }
