@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Form, FormControl, Button, InputGroup } from 'react-bootstrap';
+import { Navbar, Nav, Form, Button, InputGroup } from 'react-bootstrap';
 
-const TopNavbar = ({ isLoggedIn }) => {
+const TopNavbar = ({ isLoggedIn, onSearch }) => {
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchClick = () => {
+    onSearch(searchQuery);
+  }
+
+  const handleSignIn = () => {
+
+  }
+
   return (
-    <Navbar expand="lg" className="navbar fixed-top bg-primary" sticky="top" bg="light" data-bs-theme="light">
+    <Navbar expand="lg" className="navbar fixed-top bg-primary" sticky="top" bg="light" data-bs-theme="light" style={{ padding: "10px"}}>
       <Navbar.Brand as={Link} to="/">Home</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -15,13 +26,14 @@ const TopNavbar = ({ isLoggedIn }) => {
             placeholder="Search movies..."
             aria-label="Search"
             aria-describedby="basic-addon1"
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Button variant="outline-primary">Search</Button>
+          <Button variant="outline-primary" onClick={handleSearchClick}>Search</Button>
         </InputGroup>
         </Nav>
 
         <Nav className="ml-auto">
-          <Button variant="outline-primary">Sign In</Button>
+          <Button variant="outline-primary" onClick={handleSignIn}>Sign In</Button>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
