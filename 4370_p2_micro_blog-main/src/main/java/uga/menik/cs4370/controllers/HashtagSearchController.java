@@ -5,10 +5,12 @@ This is a project developed by Dr. Menik to give the students an opportunity to 
 */
 package uga.menik.cs4370.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import uga.menik.cs4370.models.Post;
+import uga.menik.cs4370.services.PostService;
 import uga.menik.cs4370.utility.Utility;
 
 /**
@@ -25,6 +28,18 @@ import uga.menik.cs4370.utility.Utility;
 @Controller
 public class HashtagSearchController {
 
+    private PostService postService;
+
+    @Autowired 
+    public HashtagSearchController(PostService postService) {
+        this.postService = postService;
+    }
+
+    /*
+     * localhost:8081/hashtagsearch?hashtags=
+     * The sql query is in the postService, and is meant to get all posts. Those
+     * posts are then filtered in this method by the hashtags parameter. 
+     */
     @GetMapping("/hashtagsearch")
     public ModelAndView searchPostsByHashtags(@RequestParam(name = "hashtags") String hashtags) {
         System.out.println("User is searching hashtags: " + hashtags);
@@ -38,7 +53,13 @@ public class HashtagSearchController {
         }
 
         // Retrieve posts from the database (replace this with your actual data retrieval logic)
-        List<Post> allPosts = Utility.createSamplePostsListWithoutComments();
+        //List<Post> allPosts = Utility.createSamplePostsListWithoutComments();
+        List<Post> allPosts = new ArrayList<>();
+        try {
+            allPosts = postService.getAllPosts();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } //try
 
         // Filter posts based on hashtags
         List<Post> filteredPosts = allPosts.stream()

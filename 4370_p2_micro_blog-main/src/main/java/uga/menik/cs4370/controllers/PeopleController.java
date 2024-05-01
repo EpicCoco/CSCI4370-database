@@ -30,20 +30,14 @@ import uga.menik.cs4370.utility.Utility;
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final PeopleService peopleService;
     private final UserService userService;
-
-
-    // Inject UserService and PeopleService instances.
-    // See LoginController.java to see how to do this.
-    // Hint: Add a constructor with @Autowired annotation.
+    private final PeopleService peopleService;
 
     @Autowired
-    public PeopleController(UserService userService, PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, UserService userService) {
         this.userService = userService;
         this.peopleService = peopleService;
     }
-
 
     /**
      * Serves the /people web page.
@@ -59,6 +53,7 @@ public class PeopleController {
 
         // Following line populates sample data.
         // Use UserService to access logged in userId to exclude.
+        //List<FollowableUser> followableUsers = Utility.createSampleFollowableUserList();
         try {
             String userId = userService.getLoggedInUser().getUserId();
             List<FollowableUser> followableUsers = peopleService.getFollowableUsers(userId);
@@ -66,10 +61,12 @@ public class PeopleController {
                 System.out.println("last Active date: " + fl.isLastActiveDate());
             }
             //System.out.println(followableUser
+
             mv.addObject("users", followableUsers);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLException exception) {
+            System.out.println("Error");
         }
+        
 
         // If an error occured, you can set the following property with the
         // error message to show the error message to the user.
@@ -112,7 +109,6 @@ public class PeopleController {
                 StandardCharsets.UTF_8);
         return "redirect:/people?error=" + message;
         }
-
         
         // Redirect the user if the comment adding is a success.
 

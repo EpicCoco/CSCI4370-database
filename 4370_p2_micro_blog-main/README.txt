@@ -1,21 +1,25 @@
-# Readme.txt file that contains the member names and their contributions, instructions on
-how to run the project and if you refer to any external resources to learn any concepts, a
-list of them
+# Demo video link: https://youtu.be/dW6_U32ifDU
 
 #Group 10
 
 # Project contributors/contributions:
-* Codey Borrelli
+* Codey Borrelli - Project organization, bug fixes, hashtag search/tagging, date formatting,
+add comments
 
-* Ryan Albright
+* Ryan Albright - Bookmark page, home page, add comments, database design, comments,
+hashtag search
 
-* Jude Mullins
+* Jude Mullins - Write dml.sql, populate database in database_setup.sql, people page,
+database design, ProfileService
 
-* Zach Bloodworth
+* Zach Bloodworth - Features of a post (like, bookmark, comment ordering), add comments,
+making posts, comments 
 
 # Instructions to run the project:
-1. Navigate to the directory with the pom.xml using the terminal and run the following
+1. Run docker container and start mysql server.
+2. Run database_setup.sql
+3.. Navigate to the directory with the pom.xml using the terminal and run the following
 command:
-2. mvn spring-boot:run -D"spring-boot.run.jvmArguments='-Dserver.port=8081'"
-3. Open the browser and navigate to the following URL: http://localhost:8081/
-4. Create an account and login.
+4. mvn spring-boot:run -D"spring-boot.run.jvmArguments='-Dserver.port=8081'"
+5. Open the browser and navigate to the following URL: http://localhost:8081/
+6. Create an account and login.
