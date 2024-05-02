@@ -56,7 +56,7 @@ create table if not exists User (
 
 
 -- TODO
--- Insert 1000 row Data into the Database
+-- Insert 1000 row Data into the Database @Codey help
 
 insert into Movie (Title, Genre, ReleaseDate, AwardID, ReviewID) values
 ('The Shawshank Redemption', 'Drama', '1994-09-23', 1, 1),
