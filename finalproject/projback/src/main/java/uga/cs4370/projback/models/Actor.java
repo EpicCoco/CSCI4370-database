@@ -1,22 +1,36 @@
 package uga.cs4370.projback.models;
 
-import java.util.Collection;
-
 public class Actor {
 
-    public String getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
+    private String actorId;
+
+    private String fname;
+
+    private String lname;
+
+    private int age;
+
+    public Actor(String actorId, String fname, String lname, int age) {
+        this.actorId = actorId;
+        this.fname = fname;
+        this.lname = lname;
+        this.age = age;
     }
 
-    public Collection<? extends Movie> getMovies() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMovies'");
+    public String getActorId() {
+        return actorId;
     }
 
-    public Collection<? extends Award> getAwards() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAwards'");
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public int getAge() {
+        return age;
     }
     
 }
