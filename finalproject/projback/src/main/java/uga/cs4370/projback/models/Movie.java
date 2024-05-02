@@ -1,6 +1,7 @@
 package uga.cs4370.projback.models;
 
 public class Movie {
+
     private final String movieId;
 
     private final String title;
@@ -16,6 +17,10 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
+    public Movie(String title) {
+        this.title = title;
+    }
+  
     public String getMovieId() {
         return movieId;
     }

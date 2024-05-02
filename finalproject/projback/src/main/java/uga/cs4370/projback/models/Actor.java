@@ -15,7 +15,7 @@ public class Actor {
         this.lname = lname;
         this.age = age;
     }
-
+  
     public String getActorId() {
         return actorId;
     }
@@ -27,8 +27,11 @@ public class Actor {
     public String getLname() {
         return lname;
     }
-
+     
     public String getAge() {
+        return age;
+    }
+    public int getAge() {
         return age;
     }
 }

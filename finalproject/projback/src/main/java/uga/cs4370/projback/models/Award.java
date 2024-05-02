@@ -1,6 +1,7 @@
 package uga.cs4370.projback.models;
 
 public class Award {
+
     private final String awardId;
 
     private final String awardName;
