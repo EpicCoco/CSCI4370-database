@@ -1,14 +1,14 @@
 package uga.cs4370.projback.models;
 
 public class Award {
-    
-    private String awardId;
 
-    private String awardName;
+    private final String awardId;
 
-    private String actorId;
+    private final String awardName;
 
-    private String movieId;
+    private final String actorId;
+
+    private final String movieId;
 
     public Award(String awardId, String awardName, String actorId, String movieId) {
         this.awardId = awardId;
@@ -32,6 +32,4 @@ public class Award {
     public String getMovieId() {
         return movieId;
     }
-
-    
 }
