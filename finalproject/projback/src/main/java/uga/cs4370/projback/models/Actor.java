@@ -31,7 +31,5 @@ public class Actor {
     public String getAge() {
         return age;
     }
-    public int getAge() {
-        return age;
-    }
+
 }
