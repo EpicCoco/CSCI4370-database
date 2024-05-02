@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, Button, InputGroup } from 'react-bootstrap';
 
 const TopNavbar = ({ isLoggedIn, onSearch }) => {
+  const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -11,7 +12,7 @@ const TopNavbar = ({ isLoggedIn, onSearch }) => {
   }
 
   const handleSignIn = () => {
-
+    navigate("/sign-in")
   }
 
   return (

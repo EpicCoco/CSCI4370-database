@@ -12,6 +12,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route index element={<Home />} />
           
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
 
           {/**<Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn} />} /> */}
           <Route path="*" element={<NotFound />} />
