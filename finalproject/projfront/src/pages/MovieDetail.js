@@ -2,6 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const MovieDetail = () => {
+    // Arrays for Actors, Awards, and Reviews
+    const actors = ['John', 'Mike', 'Dave'];
+    const awards = ['Best Picture', 'Best Director', 'Best Actor'];
+    const reviews = ['I liked it', 'Mid', 'womp womp'];
+
     return (
         <Container className="mt-4">
             <h1 className="mb-4">Movie Detail</h1>
@@ -12,10 +17,9 @@ const MovieDetail = () => {
                             <Card.Title>Actors</Card.Title>
                             <Card.Text>
                                 <ul className="list-unstyled">
-                                    <li>Actor 1</li>
-                                    <li>Actor 2</li>
-                                    <li>Actor 3</li>
-                                    {/* Add more actors here */}
+                                    {actors.map((actor, index) => (
+                                        <li key={index}>{actor}</li>
+                                    ))}
                                 </ul>
                             </Card.Text>
                         </Card.Body>
@@ -27,10 +31,9 @@ const MovieDetail = () => {
                             <Card.Title>Awards</Card.Title>
                             <Card.Text>
                                 <ul className="list-unstyled">
-                                    <li>Best Picture</li>
-                                    <li>Best Director</li>
-                                    <li>Best Actor</li>
-                                    {/* Add more awards here */}
+                                    {awards.map((award, index) => (
+                                        <li key={index}>{award}</li>
+                                    ))}
                                 </ul>
                             </Card.Text>
                         </Card.Body>
@@ -42,10 +45,9 @@ const MovieDetail = () => {
                             <Card.Title>Reviews</Card.Title>
                             <Card.Text>
                                 <ul className="list-unstyled">
-                                    <li>"A masterpiece!" - New York Times</li>
-                                    <li>"Absolutely stunning!" - The Guardian</li>
-                                    <li>"Must-watch!" - Variety</li>
-                                    {/* Add more reviews here */}
+                                    {reviews.map((review, index) => (
+                                        <li key={index}>{review}</li>
+                                    ))}
                                 </ul>
                             </Card.Text>
                         </Card.Body>

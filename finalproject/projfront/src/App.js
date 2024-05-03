@@ -24,17 +24,15 @@ function App() {
   return (
     <UserContext.Provider value={[loggedIn, setLoggedIn, userData, setUserData]}>
       <BrowserRouter>
-        {/*Header*/}
         <TopNavbar isLoggedIn={loggedIn} />
-        {/*Main View*/}
-
         <Routes>
           <Route index element={<Home />} />
           
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn} />} />
-          
+          <Route path="/movie/:id" element={<MovieDetail />} />
+
+          {/** <Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn} />} /> */}
           <Route path="*" element={<NotFound />} />
           {loggedIn && 
           <>
