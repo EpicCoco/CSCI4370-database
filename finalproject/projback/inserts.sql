@@ -61,3 +61,45 @@ insert into award (awardID, awardName, movieID, actorID) values ('7', 'Empire Aw
 insert into award (awardID, awardName, movieID, actorID) values ('8', 'IIFA Award for Star Debut of the Year', '10', '20');
 insert into award (awardID, awardName, movieID, actorID) values ('9', 'Golden Horse Award for Best Performer', '4', '8');
 insert into award (awardID, awardName, movieID, actorID) values ('10', 'Golden Lotus Actor Award', '10', '19');
+
+insert into user (userID, username, firstName, lastName, password) values ('1', 'filmer5000', 'Stanley', 'Brown', 'stanpass');
+insert into user (userID, username, firstName, lastName, password) values ('2', 'cinematic28', 'John', 'Johnson', 'johnpass');
+insert into user (userID, username, firstName, lastName, password) values ('3', 'cinophile15', 'Shawn', 'Riley', 'shawnpass');
+insert into user (userID, username, firstName, lastName, password) values ('4', 'pulpfictionlover', 'Shawnathan', 'Shawnson', 'secretpass16');
+insert into user (userID, username, firstName, lastName, password) values ('5', 'goodfellasbest', 'Ryan', 'Williams', 'rw526');
+insert into user (userID, username, firstName, lastName, password) values ('6', 'filmfanatic234', 'Spike', 'Spiegel', 'spacecowboy');
+insert into user (userID, username, firstName, lastName, password) values ('7', 'lovecinema', 'Fae', 'Valentine', 'bebop');
+insert into user (userID, username, firstName, lastName, password) values ('8', 'cinneman', 'Shinji', 'Ikari', 'getintherobot');
+insert into user (userID, username, firstName, lastName, password) values ('9', '657films', 'Scotty', 'Smalls', 'sandlotbest');
+insert into user (userID, username, firstName, lastName, password) values ('10', '3000tron', 'Timmy', 'Timmons', 'yourkillingmesmalls');
+
+DELIMITER $$
+
+CREATE PROCEDURE generate_reviews2()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    WHILE i < 1000 DO
+        INSERT INTO review (reviewID, rating, text, userID, movieID)
+        VALUES (i + 1,
+                FLOOR(RAND() * 5) + 1,
+                CASE FLOOR(RAND() * 9)
+                    WHEN 0 THEN 'This was bad!'
+                    WHEN 1 THEN 'I like how the main character had lots of emotion!'
+                    WHEN 2 THEN 'Some things were good, some were bad, some were meh'
+                    WHEN 3 THEN 'Really a sucker for this movie! Hope to see more from this director!'
+                    WHEN 4 THEN 'I think the lighting in this movie was terrible!'
+                    WHEN 5 THEN 'Booo! So bad! Rather would read a book'
+                    WHEN 6 THEN 'This movie was awesome!'
+                    WHEN 7 THEN 'Awkward movie, bad actors, and terrible director. Really a downfall for this type of genre'
+                    WHEN 8 THEN 'Something is wrong with the movie'
+                    ELSE 'Move wus bad. Plese write bettre script next ime…'
+                END,
+                FLOOR(RAND() * 10) + 1,
+                FLOOR(RAND() * 10) + 1);
+        SET i = i + 1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL generate_reviews();
