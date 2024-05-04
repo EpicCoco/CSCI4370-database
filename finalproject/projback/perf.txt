@@ -1,6 +1,7 @@
 Statements used to create indexes:
 
 create index col1_index_01 on large_table(col1); // 
+create index col1_index_01 on large_table(col1); //
 
 Time consumption: 
 This file should also include the queries that were affected by the indexes.
