@@ -59,7 +59,7 @@ public class ActorService {
         return movies;
     }
 
-    public Actor getActorInfo(String actorId) throws SQLException {
+    public Actor getActorById(String actorId) throws SQLException {
 
         //TODO
         return null;

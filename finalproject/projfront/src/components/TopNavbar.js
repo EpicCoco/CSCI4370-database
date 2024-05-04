@@ -22,6 +22,7 @@ const TopNavbar = ({ isLoggedIn, onSearch }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mx-auto">
+        {/** can put search bar back in if decide to fully implement
         <InputGroup>
           <Form.Control
             placeholder="Search movies..."
@@ -30,7 +31,9 @@ const TopNavbar = ({ isLoggedIn, onSearch }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Button variant="outline-primary" onClick={handleSearchClick}>Search</Button>
-        </InputGroup>
+        </InputGroup> 
+        */}
+        
         </Nav>
 
         <Nav className="ml-auto">
