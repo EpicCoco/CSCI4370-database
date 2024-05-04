@@ -24,18 +24,19 @@ const MovieDetail = () => {
         })
     }
 
-    useEffect(() => {
+    const getMovieInfo = () => {
         axios.get(`http://localhost:8080/api/movie/movies/info/${id}`)
         .then(res => {
             console.log("data", res.data);
             setMovie(res.data);
-            //setActors(res.data.actors);
-            //setAwards(res.data.awards);
-            //setReviews(res.data.reviews);
         })
         .catch(err => {
             console.error(`Error with movie ${id}`, err);
         });
+    }
+
+    useEffect(() => {
+        getMovieInfo();
       }, []); 
 
     return (

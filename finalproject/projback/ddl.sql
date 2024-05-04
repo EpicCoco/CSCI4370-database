@@ -8,8 +8,8 @@ use projback;
 create table if not exists user (
     userID int auto_increment primary key,
     username varchar(55) not null,
-    fName varchar(20) not null,
-    lName varchar(20) not null,
+    firstName varchar(20) not null,
+    lastName varchar(20) not null,
     password varchar(255) not null
 );
 
