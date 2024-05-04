@@ -1,0 +1,5 @@
+The approach used to securely store user passwords:
+
+In loginController, we have a bycrpt password encoder in every userService
+we use it every single time that a user is registered, so they input the password
+and using the password encoder we translate it into base 64 string in mysql table.
