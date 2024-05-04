@@ -103,10 +103,27 @@ public class MovieService {
         }
     }
 
-    public List<Movie> getMoviesByActor(Actor actor) {
-        
+    // ryan 
+    public List<Movie> getMoviesByActor(Actor actor) throws SQLException {
+        final String sql = "select m.* from movie m join movie_cast mc on m.movieId = mc.movieId where mc.actorId = ?";
+        List<Movie> movies = new ArrayList<>();
 
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getMoviesByActor'");
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, actor.getActorId());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String movieId = rs.getString("movieId");
+                    String title = rs.getString("title");
+                    String genre = rs.getString("genre");
+                    String releaseDate = rs.getTimestamp("releaseDate").toString();
+                    movies.add(new Movie(movieId, title, genre, releaseDate));
+                }
+            }
+        }
+
+        return movies;
     }
+
 }
