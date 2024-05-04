@@ -20,8 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import uga.cs4370.projback.services.UserService;
 
-public class UserController {
-    @Controller
+@Controller
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
