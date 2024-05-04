@@ -43,7 +43,7 @@ create table if not exists review (
 -- Create Award Table
 create table if not exists award (
     awardID int auto_increment primary key,
-    awardName varchar(20) not null unique,
+    awardName varchar(50) not null unique,
     movieID int not null,
     actorID int,
     foreign key(actorID) references actor(actorID),
@@ -60,12 +60,3 @@ create table if not exists actorMovie (
 
 -- TODO
 -- Insert 1000 row Data into the Database @Codey help
-
-insert into movie (title, genre, releaseDate) values
-('The Shawshank Redemption', 'Drama', '1994-09-23'),
-('The Godfather', 'Crime, Drama', '1972-03-24'),
-('The Dark Knight', 'Action, Crime, Drama', '2008-07-18'),
-('The Lord of the Rings: The Return of the King', 'Action, Adventure, Drama', '2003-12-17'),
-('Pulp Fiction', 'Crime, Drama', '1994-10-14'),
--- blah blah blah
-('Inception', 'Action, Adventure, Sci-Fi', '2010-07-16');
