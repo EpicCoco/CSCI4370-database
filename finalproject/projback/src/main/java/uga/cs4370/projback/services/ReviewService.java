@@ -74,6 +74,28 @@ public class ReviewService {
         return reviewList;   
     }
 
+    public List<Review> getReviewByMovie(String movieId) throws SQLException{
+        final String sql = "select * from review where movieID = ? order by postDate desc";
+        List<Review> reviewList = new ArrayList<Review>();
+        try (Connection conn = dataSource.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    // Following line replaces the first place holder with username.
+            pstmt.setString(1, movieId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String reviewId = rs.getString("reviewID");
+                    String rating = rs.getString("rating");
+                    String text = rs.getString("text");
+                    String postDate = rs.getTimestamp("postDate").toString();
+                    postDate = formatDate(postDate);
+                    String userID = rs.getString("userID");
+                    reviewList.add(new Review(reviewId,rating,text,postDate,movieId,userId));
+                }
+            }
+        }
+        return reviewList;   
+    }
+
     public String formatDate(String date) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // Format date into desired output format
