@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Movie from '../components/Movie';
 import axios from "axios";
 
 const Home = () => {
   // temporary list of movies until get get proper routes
-  const movies = [
+  /**  const movies = [
     { title: 'Fast and Furious', genre: 'Action', releaseDate: '2023-01-01' },
     { title: 'Ace Ventura', genre: 'Comedy', releaseDate: '2023-02-15' },
     { title: 'The Shawshank Redemption', genre: 'Drama', releaseDate: '2023-03-30' },
-  ];
+  ]; */
+
+  const [movies, setMovies] = useState([]);
 
   
   useEffect(() => {
     axios.get('http://localhost:8080/api/movie/movies')
       .then((response) => {
-        console.log(response.data); // Handle the response data here
+        setMovies(response.data);
       })
       .catch((error) => {
-        console.error(error); // Handle any errors here
+        console.error(error);
+        window.alert("Error loading movies - make sure database is running.")
       });
   }, []);
   
@@ -28,7 +31,7 @@ const Home = () => {
       <div>
         {movies.map((movie, index) => (
           <Movie
-            id={movie.id}
+            id={movie.movieId}
             key={index}
             title={movie.title}
             genre={movie.genre}
@@ -37,6 +40,7 @@ const Home = () => {
           />
         ))}
       </div>
+      <div style={{padding: "20px"}} />
     </div>
   );
 }

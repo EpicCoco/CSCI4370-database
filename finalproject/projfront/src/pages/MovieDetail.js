@@ -8,7 +8,7 @@ const MovieDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     //in case movie in different format
-    const [movie, setMovie] = useState({title:"DummyMovieTitle"}); //testing
+    const [movie, setMovie] = useState([]); //testing
 
     // temporary values for Actors, Awards, and Reviews
     const [actors, setActors] = useState(['John', 'Mike', 'Dave']);
@@ -25,13 +25,13 @@ const MovieDetail = () => {
     }
 
     useEffect(() => {
-        //want to get movie detail on page load
-        axios.get(`http://localhost:8080/api/movie/${id}`)
+        axios.get(`http://localhost:8080/api/movie/movies/info/${id}`)
         .then(res => {
+            console.log("data", res.data);
             setMovie(res.data);
-            setActors(res.data.actors);
-            setAwards(res.data.awards);
-            setReviews(res.data.reviews);
+            //setActors(res.data.actors);
+            //setAwards(res.data.awards);
+            //setReviews(res.data.reviews);
         })
         .catch(err => {
             console.error(`Error with movie ${id}`, err);
