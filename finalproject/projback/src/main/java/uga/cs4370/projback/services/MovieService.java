@@ -105,7 +105,7 @@ public class MovieService {
 
     // ryan 
     public List<Movie> getMoviesByActor(Actor actor) throws SQLException {
-        final String sql = "select m.* from movie m join movie_cast mc on m.movieId = mc.movieId where mc.actorId = ?";
+        final String sql = "select m.* from movie m join actorMovie mc on m.movieId = mc.movieId where mc.actorId = ?";
         List<Movie> movies = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
