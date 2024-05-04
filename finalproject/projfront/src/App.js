@@ -17,6 +17,7 @@ import MovieDetail from "./pages/MovieDetail";
 import ActorDetail from "./pages/ActorDetail";
 import AwardDetail from "./pages/AwardDetail";
 import UserDetail from "./pages/UserDetail";
+import MakeReview from "./pages/MakeReview";
 import NotFound from "./pages/NotFound";
 
 
@@ -42,7 +43,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           {loggedIn && 
           <>
-          {/**<Route path="" element={} */ /**TODO add routes for when logged in */}
+          <Route path="/review/" element={<MakeReview />} />
           </>}
         </Routes>
       </BrowserRouter>

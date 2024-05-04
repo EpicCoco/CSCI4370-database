@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from "react-router-dom";
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import axios from "axios";
 
 const MovieDetail = () => {
 
     const { id } = useParams();
-    const [movie, setMovie] = useState([]); //in case movie in different format
+    const navigate = useNavigate();
+    //in case movie in different format
+    const [movie, setMovie] = useState({title:"DummyMovieTitle"}); //testing
 
     // temporary values for Actors, Awards, and Reviews
     const [actors, setActors] = useState(['John', 'Mike', 'Dave']);
     const [awards, setAwards] = useState(['Best Picture', 'Best Director', 'Best Actor']);
     const [reviews, setReviews] = useState(['I liked it', 'Mid', 'womp womp']);
+
+    const handleAddReview = () => {
+        //go to review with the movie's info passed thru
+        navigate("/review", {
+            state: {
+                movie: movie
+            }
+        })
+    }
 
     useEffect(() => {
         //want to get movie detail on page load
@@ -39,7 +50,7 @@ const MovieDetail = () => {
                                 <ul className="list-unstyled">
                                     {/** How I think I wanna do linking to actor page */}
                                     {actors.map((actor, index) => (
-                                        <Link to="/"><li key={index}>{actor}</li></Link> 
+                                        <Link to={`/actor/${actor.id}`}><li key={index}>{actor}</li></Link> 
                                     ))}
                                 </ul>
                             </Card.Text>
@@ -63,7 +74,10 @@ const MovieDetail = () => {
                 <Col>
                     <Card>
                         <Card.Body>
-                            <Card.Title>Reviews</Card.Title>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <Card.Title>Reviews</Card.Title>
+                                <Button variant="secondary" onClick={handleAddReview}>Add review</Button>
+                            </div>
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {reviews.map((review, index) => (
