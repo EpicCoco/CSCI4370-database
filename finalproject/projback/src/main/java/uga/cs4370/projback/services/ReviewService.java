@@ -31,7 +31,7 @@ public class ReviewService {
     public boolean makeReview(String rating, String text, String movieId, String userId) throws SQLException {
         // this SQL statement is used to push new posts into the database, and it is called from the
         // home page: http://localhost:8081/
-        final String sql = "insert into review (rating, text, postDate, movieID, userId) values (?, ?, ?, ?, ?)";
+        final String sql = "insert into review (rating, text, postDate, movieID, userID) values (?, ?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
             String currentDate = new java.sql.Timestamp(System.currentTimeMillis()).toString();
