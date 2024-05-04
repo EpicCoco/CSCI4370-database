@@ -27,7 +27,7 @@ const MovieDetail = () => {
     const getMovieInfo = () => {
         axios.get(`http://localhost:8080/api/movie/movies/info/${id}`)
         .then(res => {
-            console.log("data", res.data);
+            console.log("movie data", res.data);
             setMovie(res.data);
         })
         .catch(err => {
@@ -35,8 +35,20 @@ const MovieDetail = () => {
         });
     }
 
+    const getMovieAwards = () => {
+        axios.get(`http://localhost:8080/api/award/movie/${id}`)
+        .then(res => {
+            console.log("awards data", res.data);
+            setAwards(res.data);
+        })
+        .catch(err => {
+            console.error(`Error with movie ${id} awards`, err);
+        });
+    }
+
     useEffect(() => {
         getMovieInfo();
+        getMovieAwards();
       }, []); 
 
     return (
@@ -65,7 +77,7 @@ const MovieDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {awards.map((award, index) => (
-                                        <li key={index}>{award}</li>
+                                        <li key={index}>{award.awardName}</li>
                                     ))}
                                 </ul>
                             </Card.Text>

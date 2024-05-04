@@ -7,11 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import uga.cs4370.projback.models.Actor;
@@ -22,6 +24,9 @@ import uga.cs4370.projback.services.MovieService;
 import uga.cs4370.projback.services.UserService;
 import uga.cs4370.projback.services.AwardService;
 
+@RestController
+@RequestMapping("/api/award")
+@CrossOrigin
 public class AwardController {
     
     private final AwardService awardService;
@@ -35,7 +40,7 @@ public class AwardController {
      * 
      * Get the info for a specific award
      */
-    @GetMapping("/award/info/{awardId}")
+    @GetMapping("/info/{awardId}")
     public Award getAwardInfo(@PathVariable("awardId") String awardId) {
         try {
             return awardService.getAwardInfo(awardId);
@@ -46,7 +51,7 @@ public class AwardController {
         }
     }
 
-    @GetMapping("/awards/{movieId}")
+    @GetMapping("/movie/{movieId}")
     public List<Award> getMovieAwards(@PathVariable("movieId") String movieId) {
         try {
             return awardService.getMovieAwards(movieId);
@@ -57,7 +62,7 @@ public class AwardController {
         }
     }
 
-    @GetMapping("/awards/{actorId}")
+    @GetMapping("/actor/{actorId}")
     public List<Award> getActorAwards(@PathVariable("actorId") String actorId) {
         try {
             return awardService.getActorAwards(actorId);
