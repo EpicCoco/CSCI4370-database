@@ -40,7 +40,7 @@ public class AwardService {
     }
 
     public Award getAwardInfo(String awardId) throws SQLException {
-        final String sql = "select * from award where awardId = ?";
+        final String sql = "select * from award where awardID = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, awardId);
@@ -48,8 +48,8 @@ public class AwardService {
                 while (rs.next()) {
                     // awardId awardName actorId movieId
                     String awardName = rs.getString("awardName");
-                    String actorId = rs.getString("actorId");
-                    String movieId = rs.getString("movieId");
+                    String actorId = rs.getString("actorID");
+                    String movieId = rs.getString("movieID");
                     return new Award(awardId, awardName, actorId, movieId);
                 }
             }
@@ -60,7 +60,7 @@ public class AwardService {
     }
 
     public List<Award> getMovieAwards(String movieId) throws SQLException {
-        final String sql = "select * from award where movieId = ?";
+        final String sql = "select * from award where movieID = ?";
         List<Award> awards = new ArrayList<Award>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -68,9 +68,9 @@ public class AwardService {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     // awardId awardName actorId movieId
-                    String awardId = rs.getString("awardId");
+                    String awardId = rs.getString("awardID");
                     String awardName = rs.getString("awardName");
-                    String actorId = rs.getString("actorId");
+                    String actorId = rs.getString("actorID");
                     awards.add(new Award(awardId, awardName, actorId, movieId));
                 }
             }
@@ -81,7 +81,7 @@ public class AwardService {
     }
 
     public List<Award> getActorAwards(String actorId) throws SQLException {
-        final String sql = "select * from award where actorId = ?";
+        final String sql = "select * from award where actorID = ?";
         List<Award> awards = new ArrayList<Award>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -89,9 +89,9 @@ public class AwardService {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     // awardId awardName actorId movieId
-                    String awardId = rs.getString("awardId");
+                    String awardId = rs.getString("awardID");
                     String awardName = rs.getString("awardName");
-                    String movieId = rs.getString("movieId");
+                    String movieId = rs.getString("movieID");
                     awards.add(new Award(awardId, awardName, actorId, movieId));
                 }
             }

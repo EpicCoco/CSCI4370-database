@@ -32,7 +32,7 @@ public class ActorService {
 
     public List<Award> getActorsAwards(String actorId) throws SQLException {
 
-        final String sql = "select * from award where actorId = ?";
+        final String sql = "select * from award where actorID = ?";
         List<Award> awards = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
@@ -41,9 +41,9 @@ public class ActorService {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    String awardId = rs.getString("awardId");
+                    String awardId = rs.getString("awardID");
                     String awardName = rs.getString("awardName");
-                    String movieId = rs.getString("movieId");
+                    String movieId = rs.getString("movieID");
                     Award awardToAdd = new Award(awardId, awardName, actorId, movieId);
                     awards.add(awardToAdd);
                 } //while
@@ -61,7 +61,7 @@ public class ActorService {
 
     // ryan
     public Actor getActorById(String actorId) throws SQLException {
-        final String sql = "select * from actor where actorId = ?";
+        final String sql = "select * from actor where actorID = ?";
         Actor actor = null;
 
         try (Connection conn = dataSource.getConnection();

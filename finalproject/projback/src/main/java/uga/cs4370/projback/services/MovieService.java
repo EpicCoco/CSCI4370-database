@@ -47,7 +47,7 @@ public class MovieService {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     // MovieID Title Genre ReleaseDate
-                    String movieId = rs.getString("movieId");
+                    String movieId = rs.getString("movieID");
                     String title = rs.getString("title");
                     String genre = rs.getString("genre");
                     String releaseDate = rs.getTimestamp("releaseDate").toString();
@@ -61,7 +61,7 @@ public class MovieService {
     }
 
     public List<Review> getMovieReviews(String movieId) throws SQLException {
-        final String sql = "select * from review where movieId = ?";
+        final String sql = "select * from review where movieID = ?";
         List<Review> reviews = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -69,11 +69,11 @@ public class MovieService {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     // reviewId rating text postDate movieId userId
-                    String reviewId = rs.getString("reviewId");
+                    String reviewId = rs.getString("reviewID");
                     String rating = rs.getString("rating");
                     String text = rs.getString("text");
                     String postDate = rs.getTimestamp("postDate").toString();
-                    String userId = rs.getString("userId");
+                    String userId = rs.getString("userID");
                     reviews.add(new Review(reviewId, rating, text, postDate, movieId, userId));
                 }
             }
@@ -84,7 +84,7 @@ public class MovieService {
     }
 
     public Movie getMovieInfo(String movieId) throws SQLException {
-        final String sql = "select * from movie where movieId = ?";
+        final String sql = "select * from movie where movieID = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, movieId);
@@ -105,7 +105,7 @@ public class MovieService {
 
     // ryan 
     public List<Movie> getMoviesByActor(Actor actor) throws SQLException {
-        final String sql = "select m.* from movie m join actorMovie mc on m.movieId = mc.movieId where mc.actorId = ?";
+        final String sql = "select m.* from movie m join actorMovie mc on m.movieID = mc.movieID where mc.actorID = ?";
         List<Movie> movies = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
@@ -114,7 +114,7 @@ public class MovieService {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    String movieId = rs.getString("movieId");
+                    String movieId = rs.getString("movieID");
                     String title = rs.getString("title");
                     String genre = rs.getString("genre");
                     String releaseDate = rs.getTimestamp("releaseDate").toString();
