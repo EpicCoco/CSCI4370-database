@@ -36,8 +36,8 @@ create table if not exists review (
     text varchar(200) not null,
     userID int,
     movieID int,
-    foreign key(userID) references User(userID),
-    foreign key(movieID) references Movie(movieID)
+    foreign key(userID) references user(userID),
+    foreign key(movieID) references movie(movieID)
 );
 
 -- Create Award Table
@@ -46,16 +46,16 @@ create table if not exists award (
     awardName varchar(20) not null unique,
     movieID int not null,
     actorID int,
-    foreign key(ActorID) references Actor(ActorID),
-    foreign key(MovieID) references Movie(MovieID)
+    foreign key(actorID) references actor(actorID),
+    foreign key(movieID) references movie(MovieID)
 );
 
 -- Create ActorMovie Table
 create table if not exists actorMovie (
     actorID int,
     movieID int,
-    foreign key(actorID) references Actor(actorID),
-    foreign key(movieID) references Movie(movieID)
+    foreign key(actorID) references actor(actorID),
+    foreign key(movieID) references movie(movieID)
 );
 
 -- TODO

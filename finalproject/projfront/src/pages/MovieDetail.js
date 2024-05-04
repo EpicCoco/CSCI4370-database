@@ -36,7 +36,7 @@ const MovieDetail = () => {
         .catch(err => {
             console.error(`Error with movie ${id}`, err);
         });
-      }); //may need to re-add dependency array
+      }, []); 
 
     return (
         <Container className="mt-4 justify-content-center">
