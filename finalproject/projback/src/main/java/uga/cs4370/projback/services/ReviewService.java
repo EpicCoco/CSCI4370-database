@@ -28,31 +28,32 @@ public class ReviewService {
         this.userService = userService;
     }
 
-    public void makeReview(String reviewId, String rating, String text, String movieId, String userId) throws SQLException {
+    public boolean makeReview(String rating, String text, String movieId, String userId) throws SQLException {
         // this SQL statement is used to push new posts into the database, and it is called from the
         // home page: http://localhost:8081/
-        final String sql = "insert into review (reviewId, rating, text, postDate, movieId, userId) values (?, ?, ?, ?, ?, ?)";
+        final String sql = "insert into review (rating, text, postDate, movieID, userId) values (?, ?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
             String currentDate = new java.sql.Timestamp(System.currentTimeMillis()).toString();
-            pstmt.setString(1, reviewId);
-            pstmt.setString(2, rating);
-            pstmt.setString(3, text);
-            pstmt.setString(4, currentDate);
-            pstmt.setString(5, movieId);
-            pstmt.setString(6, userId);
+            pstmt.setString(1, rating);
+            pstmt.setString(2, text);
+            pstmt.setString(3, currentDate);
+            pstmt.setString(4, movieId);
+            pstmt.setString(5, userId);
 
             int numChanged = pstmt.executeUpdate();
             if (numChanged > 0) {
                 System.out.println("Review creation successful.");
+                return true;
             } else {
                 System.out.println("Review creation failed.");
+                return false;
             }
         }
     }
 
     public List<Review> getReviewByUser(String userId) throws SQLException{
-        final String sql = "select * from review where userId = ? order by postDate desc";
+        final String sql = "select * from review where userID = ? order by postDate desc";
         List<Review> reviewList = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -60,12 +61,12 @@ public class ReviewService {
             pstmt.setString(1, userId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    String reviewId = rs.getString("reviewId");
+                    String reviewId = rs.getString("reviewID");
                     String rating = rs.getString("rating");
                     String text = rs.getString("text");
                     String postDate = rs.getTimestamp("postDate").toString();
                     postDate = formatDate(postDate);
-                    String movieId = rs.getString("movieId");
+                    String movieId = rs.getString("movieID");
                     reviewList.add(new Review(reviewId,rating,text,postDate,movieId,userId));
                 }
             }
