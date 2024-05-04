@@ -5,7 +5,7 @@ create database if not exists projback;
 use projback;
 
 -- Create User table
-create table if not exists User (
+create table if not exists user (
     userID int auto_increment primary key,
     username varchar(55) not null,
     fName varchar(20) not null,
@@ -14,7 +14,7 @@ create table if not exists User (
 );
 
 -- Create Movie Table
-create table if not exists Movie (
+create table if not exists movie (
     movieID int auto_increment primary key,
     title varchar(50) not null,
     genre varchar(30) not null,
@@ -22,7 +22,7 @@ create table if not exists Movie (
 );
 
 -- Create Actor Table
-create table if not exists Actor (
+create table if not exists actor (
     actorID int auto_increment primary key,
     fName varchar(20) not null,
     lname varchar(20) not null,
@@ -30,7 +30,7 @@ create table if not exists Actor (
 );
 
 -- Create Review table
-create table if not exists Review (
+create table if not exists review (
     reviewID int auto_increment primary key,
     rating varchar(10) not null,
     text varchar(200) not null,
@@ -41,7 +41,7 @@ create table if not exists Review (
 );
 
 -- Create Award Table
-create table if not exists Award (
+create table if not exists award (
     awardID int auto_increment primary key,
     awardName varchar(20) not null unique,
     movieID int not null,
@@ -51,7 +51,7 @@ create table if not exists Award (
 );
 
 -- Create ActorMovie Table
-create table if not exists ActorMovie (
+create table if not exists actorMovie (
     actorID int,
     movieID int,
     foreign key(actorID) references Actor(actorID),
@@ -61,7 +61,7 @@ create table if not exists ActorMovie (
 -- TODO
 -- Insert 1000 row Data into the Database @Codey help
 
-insert into Movie (title, genre, releaseDate) values
+insert into movie (title, genre, releaseDate) values
 ('The Shawshank Redemption', 'Drama', '1994-09-23'),
 ('The Godfather', 'Crime, Drama', '1972-03-24'),
 ('The Dark Knight', 'Action, Crime, Drama', '2008-07-18'),

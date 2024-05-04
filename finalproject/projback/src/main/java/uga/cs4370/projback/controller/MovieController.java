@@ -25,6 +25,7 @@ import uga.cs4370.projback.services.UserService;
  * Initialization for controller archetype and movie route
  */
 @Controller
+@RequestMapping("/api/movie")
 public class MovieController {
     
     // private fields for necessary services

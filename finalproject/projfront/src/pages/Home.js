@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Movie from '../components/Movie';
+import axios from "axios";
 
 const Home = () => {
   // temporary list of movies until get get proper routes
@@ -8,6 +9,18 @@ const Home = () => {
     { title: 'Ace Ventura', genre: 'Comedy', releaseDate: '2023-02-15' },
     { title: 'The Shawshank Redemption', genre: 'Drama', releaseDate: '2023-03-30' },
   ];
+
+  
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/movie/movies')
+      .then((response) => {
+        console.log(response.data); // Handle the response data here
+      })
+      .catch((error) => {
+        console.error(error); // Handle any errors here
+      });
+  }, []);
+  
 
   return (
     <div>
