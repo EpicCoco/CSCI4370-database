@@ -70,8 +70,8 @@ public class ActorService {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    String fname = rs.getString("fname");
-                    String lname = rs.getString("lname");
+                    String fname = rs.getString("firstName");
+                    String lname = rs.getString("lastName");
                     String age = rs.getString("age");
                     actor = new Actor(actorId, fname, lname, age);
                 }

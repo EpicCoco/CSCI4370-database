@@ -24,8 +24,8 @@ create table if not exists movie (
 -- Create Actor Table
 create table if not exists actor (
     actorID int auto_increment primary key,
-    fName varchar(20) not null,
-    lname varchar(20) not null,
+    firstName varchar(20) not null,
+    lastName varchar(20) not null,
     age int not null
 );
 
