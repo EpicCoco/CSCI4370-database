@@ -15,6 +15,7 @@ const Home = () => {
       <div>
         {movies.map((movie, index) => (
           <Movie
+            id={movie.id}
             key={index}
             title={movie.title}
             genre={movie.genre}

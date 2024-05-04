@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import axios from "axios";
 
 const MovieDetail = () => {
-    // Arrays for Actors, Awards, and Reviews
-    const actors = ['John', 'Mike', 'Dave'];
-    const awards = ['Best Picture', 'Best Director', 'Best Actor'];
-    const reviews = ['I liked it', 'Mid', 'womp womp'];
+
+    const { id } = useParams();
+    const [movie, setMovie] = useState([]); //in case movie in different format
+
+    // temporary values for Actors, Awards, and Reviews
+    const [actors, setActors] = useState(['John', 'Mike', 'Dave']);
+    const [awards, setAwards] = useState(['Best Picture', 'Best Director', 'Best Actor']);
+    const [reviews, setReviews] = useState(['I liked it', 'Mid', 'womp womp']);
+
+    useEffect(() => {
+        //want to get movie detail on page load
+        axios.get(`http://localhost:8080/api/movie/${id}`)
+        .then(res => {
+            setMovie(res.data);
+            setActors(res.data.actors);
+            setAwards(res.data.awards);
+            setReviews(res.data.reviews);
+        })
+        .catch(err => {
+            console.error(`Error with movie ${id}`, err);
+        });
+      }); //may need to re-add dependency array
 
     return (
-        <Container className="mt-4">
-            <h1 className="mb-4">Movie Detail</h1>
+        <Container className="mt-4 justify-content-center">
+            <h1 className="mb-4">{movie.title ? movie.title : "Movie Detail"}</h1>
             <Row>
                 <Col>
                     <Card>
@@ -17,8 +37,9 @@ const MovieDetail = () => {
                             <Card.Title>Actors</Card.Title>
                             <Card.Text>
                                 <ul className="list-unstyled">
+                                    {/** How I think I wanna do linking to actor page */}
                                     {actors.map((actor, index) => (
-                                        <li key={index}>{actor}</li>
+                                        <Link to="/"><li key={index}>{actor}</li></Link> 
                                     ))}
                                 </ul>
                             </Card.Text>

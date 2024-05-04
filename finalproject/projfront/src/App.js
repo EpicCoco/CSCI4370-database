@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import MovieDetail from "./pages/MovieDetail";
+import ActorDetail from "./pages/ActorDetail";
+import AwardDetail from "./pages/AwardDetail";
 import NotFound from "./pages/NotFound";
 
 
@@ -31,6 +33,8 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/actor/:id" element={<ActorDetail />} />
+          <Route path="/award/:id" element={<AwardDetail />} />
 
           {/** <Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn} />} /> */}
           <Route path="*" element={<NotFound />} />
