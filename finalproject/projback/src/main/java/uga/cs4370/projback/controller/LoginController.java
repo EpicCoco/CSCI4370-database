@@ -22,7 +22,7 @@ import uga.cs4370.projback.services.UserService;
  * This is the controler that handles /login URL.
  */
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class LoginController {
 
     // UserService has user login and registration related functions.
@@ -50,18 +50,16 @@ public class LoginController {
         try {
             isAuthenticated = userService.authenticate(username, password);
         } catch (SQLException e) {
-            // Redirect back to the login page with an error message if authentication
-            // fails.
-            return ResponseEntity.notFound().build();
+            // Redirect back to the login page with an error message if authentication fails.
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
         }
-
         if (isAuthenticated) {
             // Redirect to home page if authentication is successful.
-            return ResponseEntity.ok("Login Page");
+            return ResponseEntity.ok("Successfully logged in");
         } else {
-            // Redirect back to the login page with an error message if authentication
-            // fails.
-            return ResponseEntity.notFound().build();
+            // Redirect back to the login page with an error message if authentication fails.
+            return ResponseEntity.badRequest().build();
         }
     }
     

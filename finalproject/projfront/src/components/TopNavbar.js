@@ -37,7 +37,10 @@ const TopNavbar = ({ isLoggedIn, onSearch }) => {
         </Nav>
 
         <Nav className="ml-auto">
+          {isLoggedIn ? 
           <Button variant="outline-primary" onClick={handleSignIn}>Sign In</Button>
+          : <Button variant="outline-primary" onClick={handleSignIn}>Sign Out</Button>
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>

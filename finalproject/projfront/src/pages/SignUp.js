@@ -7,7 +7,7 @@ import { Button, Card, Col, Container, Form, InputGroup, Row } from "react-boots
 import { useNavigate } from "react-router-dom";
 
 // icon imports
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import axios from "axios";
@@ -17,13 +17,13 @@ const SignUp = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const firstName = "codey"
-    const lastName = "borrelli"
     let values = {
       username: username,
       password: password,
@@ -36,21 +36,21 @@ const SignUp = () => {
       maxBodyLength: Infinity,
       url: 'http://localhost:8080/api/register',
       headers: {
-          'Content-Type': 'application/x-www-form-urlencoded' // Set the content type accordingly
+          'Content-Type': 'application/x-www-form-urlencoded'
       },
-      params: values // Send data as request parameters
+      params: values
   };
   
   axios.request(config)
   .then((response) => {
       console.log(JSON.stringify(response.data));
+      //on success, go to sign in page
+      navigate("/sign-in");
   })
   .catch((error) => {
       console.log(error);
+      window.alert("Something went wrong! Please make sure your password has at least 3 characters.");
   });
-    
-    //on success, go to sign in page
-    //navigate("/sign-in");
   };
 
   return (
@@ -86,6 +86,42 @@ const SignUp = () => {
                     </div>
                   </Form.Group>
 
+                  <Form.Group controlId="formFirstName" className="vertical-spacing">
+                    <Form.Label>First Name</Form.Label>
+                    <div className="custom-focus">
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <FontAwesomeIcon icon={faIdCard} />
+                        </InputGroup.Text>
+                        <Form.Control
+                          type="text"
+                          placeholder={"First Name"}
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          required
+                        />
+                      </InputGroup>
+                    </div>
+                  </Form.Group>
+
+                  <Form.Group controlId="formLastName" className="vertical-spacing">
+                    <Form.Label>Last Name</Form.Label>
+                    <div className="custom-focus">
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <FontAwesomeIcon icon={faIdCard} />
+                        </InputGroup.Text>
+                        <Form.Control
+                          type="text"
+                          placeholder={"Last Name"}
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          required
+                        />
+                      </InputGroup>
+                    </div>
+                  </Form.Group>
+
                   <Form.Group controlId="formPassword" className="vertical-spacing">
                     <Form.Label>Password</Form.Label>
                     <div className="custom-focus">
@@ -103,8 +139,9 @@ const SignUp = () => {
                         />
                       </InputGroup>
                     </div>
-                    <div style={{padding: "8px"}} />
                   </Form.Group>
+
+                  <div style={{padding: "8px"}} />
                   <Row xs={2} md={1} className="g-1">
                     <Button variant="primary" type="submit">
                       Sign up

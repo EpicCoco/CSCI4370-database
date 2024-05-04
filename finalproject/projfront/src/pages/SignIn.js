@@ -22,25 +22,33 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    try {
-      const url = new URL("http://localhost:8080/api/user/login");
-      url.searchParams.append("username", username);
-      url.searchParams.append("password", password);
-      axios
-        .post(url.toString())
-        .then((res) => {
-          setLoggedIn(true);
-          setUserData(res.data);
-          //console.log(res.data);
-          console.log("user successfully signed in");
-          navigate("/"); // Redirect to the home page 
-        })
-        .catch((error) => {
-            console.error("Login failed:", error.response ? error.response.data : "no response");
-        });
-    } catch (error) {
-      console.error("Login failed:", error.response ? error.response.data : "no response");
-    }
+    let values = {
+      username: username,
+      password: password
+    };
+    
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/api/login',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params: values
+    };
+    
+    axios.request(config)
+    .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setLoggedIn(true);
+        navigate("/");
+
+    })
+    .catch((error) => {
+        console.log(error);
+        window.alert("Something went wrong. Please verify your username and password.")
+    });
+    
   };
 
   return (
