@@ -4,9 +4,10 @@ import uga.cs4370.projback.models.Actor;
 import uga.cs4370.projback.models.Movie;
 import uga.cs4370.projback.models.Award;
 import uga.cs4370.projback.services.ActorService;
-//import uga.cs4370.projback.services.MovieService; // TODO
-//import uga.cs4370.projback.services.AwardService; // TODO
+import uga.cs4370.projback.services.MovieService; 
+import uga.cs4370.projback.services.AwardService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,42 +20,45 @@ import org.springframework.web.servlet.ModelAndView;
 public class ActorController {
 
     private final ActorService actorService;
-    //private final MovieService movieService;
-    //private final AwardService awardService;
+    private final MovieService movieService;
+    private final AwardService awardService;
 
     @Autowired
-    public ActorController(ActorService actorService/*, MovieService movieService, AwardService awardService*/) {
+    public ActorController(ActorService actorService, MovieService movieService, AwardService awardService) {
         this.actorService = actorService;
-        //this.movieService = movieService;
-        //this.awardService = awardService;
+        this.movieService = movieService;
+        this.awardService = awardService;
     }
 
     /**
      * 
      * Get all movies with a certain actor in it
+     * @throws SQLException 
      */
     @GetMapping("/actors/{actorId}/movies")
-    public List<Movie> getMoviesWithActor(@PathVariable("actorId") int actorId) {
-        /*
+    public List<Movie> getMoviesWithActor(@PathVariable("actorId") String actorId) throws SQLException {
+        
         Actor actor = actorService.getActorById(actorId);
         List<Movie> moviesWithActor = movieService.getMoviesByActor(actor);
+
         return moviesWithActor;
-         */
-        return null;
+        //return null;
     }
 
     /**
      * 
      * Get all awards for an actor
+     * @throws SQLException 
      */
     @GetMapping("/actors/{actorId}/awards")
-    public List<Award> getAwardsForActor(@PathVariable("actorId") String actorId) {
-        /*
+    public List<Award> getActorAwards(@PathVariable("actorId") String actorId) throws SQLException {
+        
         Actor actor = actorService.getActorById(actorId);
-        List<Award> awardsForActor = awardService.getAwardsForActor(actor);
+        List<Award> awardsForActor = awardService.getActorAwards(actorId); 
+
         return awardsForActor;
-         */
-        return null;
+        
+        // return null;
     }
 
     /**

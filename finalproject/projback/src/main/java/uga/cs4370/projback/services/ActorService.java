@@ -59,9 +59,30 @@ public class ActorService {
         return movies;
     }
 
+    // ryan
     public Actor getActorById(String actorId) throws SQLException {
+        final String sql = "select * from actor where actorId = ?";
+        Actor actor = null;
 
-        //TODO
-        return null;
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, actorId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String fname = rs.getString("fname");
+                    String lname = rs.getString("lname");
+                    String age = rs.getString("age");
+                    actor = new Actor(actorId, fname, lname, age);
+                }
+            }
+        }
+
+        if (actor == null) {
+            throw new SQLException("Actor not found for ID: " + actorId);
+        }
+
+        return actor;
     }
+
 }

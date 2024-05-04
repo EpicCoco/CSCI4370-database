@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import uga.cs4370.projback.models.Actor;
 import uga.cs4370.projback.models.Movie;
 import uga.cs4370.projback.models.Review;
 
@@ -100,4 +101,10 @@ public class MovieService {
         }
     }
 
+    public List<Movie> getMoviesByActor(Actor actor) {
+        
+
+        
+        throw new UnsupportedOperationException("Unimplemented method 'getMoviesByActor'");
+    }
 }
