@@ -1,19 +1,17 @@
 -- Create the database.
-create database if not exists cs4370_mb_platform;
+create database if not exists projback;
 
 -- Use the created database.
-use cs4370_mb_platform;
+use projback;
 
 -- Create Award Table
 create table if not exists Award (
     AwardID int auto_increment primary key,
-    AwardName varchar(20) not null unique
-);
-
--- Create ActorAward Table
-create table if not exists ActorAward (
-    ActorAwardID int auto_increment primary key,
-    ActorAwardName varchar(20) unique
+    AwardName varchar(20) not null unique,
+    MovieID int not null,
+    ActorID int,
+    foreign key(ActorID) references Actor(ActorID),
+    foreign key(MovieID) references Movie(MovieID)
 );
 
 -- Create Actor Table
