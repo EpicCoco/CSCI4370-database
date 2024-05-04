@@ -22,9 +22,35 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    const firstName = "codey"
+    const lastName = "borrelli"
+    let values = {
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName, lastName  
+    }
+  
+  let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:8080/api/register',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded' // Set the content type accordingly
+      },
+      params: values // Send data as request parameters
+  };
+  
+  axios.request(config)
+  .then((response) => {
+      console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+      console.log(error);
+  });
     
     //on success, go to sign in page
-    navigate("/sign-in");
+    //navigate("/sign-in");
   };
 
   return (

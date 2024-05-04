@@ -28,12 +28,10 @@ import uga.cs4370.projback.services.UserService;
 public class MovieController {
     
     // private fields for necessary services
-    private final UserService userService;
     private final MovieService movieService;
 
     @Autowired
-    public MovieController(UserService userService, MovieService movieService) {
-        this.userService = userService;
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
