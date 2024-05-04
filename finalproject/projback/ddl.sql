@@ -6,7 +6,8 @@ use projback;
 
 -- Create User table
 create table if not exists User (
-    username varchar(55) primary key,
+    userID int auto_increment primary key,
+    username varchar(55) not null,
     fName varchar(20) not null,
     lName varchar(20) not null,
     password varchar(255) not null
