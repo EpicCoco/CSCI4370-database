@@ -89,7 +89,7 @@ public class ReviewService {
                     String postDate = rs.getTimestamp("postDate").toString();
                     postDate = formatDate(postDate);
                     String userID = rs.getString("userID");
-                    reviewList.add(new Review(reviewId,rating,text,postDate,movieId,userId));
+                    reviewList.add(new Review(reviewId,rating,text,postDate,movieId,userID));
                 }
             }
         }
