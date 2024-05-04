@@ -25,7 +25,7 @@ create table if not exists Actor (
     actorID int auto_increment primary key,
     fName varchar(20) not null,
     lname varchar(20) not null,
-    age int not null,
+    age int not null
 );
 
 -- Create Review table
