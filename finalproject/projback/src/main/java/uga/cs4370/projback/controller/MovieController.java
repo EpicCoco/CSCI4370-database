@@ -42,7 +42,7 @@ public class MovieController {
     /**
      * Get all movies
      */
-    @GetMapping("/movies")
+    @GetMapping
     public List<Movie> getMovies() {
         try {
             List<Movie> movies = movieService.getAllMovies();
@@ -54,7 +54,7 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/movies/reviews/{movieId}")
+    @GetMapping("/reviews/{movieId}")
     public List<Review> getMovieReviews(@PathVariable("movieId") String movieId) {
         try {
             List<Review> reviews = movieService.getMovieReviews(movieId);
@@ -66,7 +66,7 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/movies/info/{movieId}")
+    @GetMapping("/info/{movieId}")
     public Movie getMovieInfo(@PathVariable("movieId") String movieId) {
         try {
             return movieService.getMovieInfo(movieId);

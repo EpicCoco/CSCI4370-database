@@ -25,9 +25,9 @@ const MovieDetail = () => {
     }
 
     const getMovieInfo = () => {
-        axios.get(`http://localhost:8080/api/movie/movies/info/${id}`)
+        axios.get(`http://localhost:8080/api/movie/info/${id}`)
         .then(res => {
-            console.log("movie data", res.data);
+            //console.log("movie data", res.data);
             setMovie(res.data);
         })
         .catch(err => {
@@ -38,7 +38,7 @@ const MovieDetail = () => {
     const getMovieAwards = () => {
         axios.get(`http://localhost:8080/api/award/movie/${id}`)
         .then(res => {
-            console.log("awards data", res.data);
+            //console.log("awards data", res.data);
             setAwards(res.data);
         })
         .catch(err => {
@@ -46,9 +46,21 @@ const MovieDetail = () => {
         });
     }
 
+    const getMovieReviews = () => {
+        axios.get(`http://localhost:8080/api/movie/reviews/${id}`)
+        .then(res => {
+            //console.log("reviews data", res.data);
+            setReviews(res.data);
+        })
+        .catch(err => {
+            console.error(`Error with movie ${id} reviews`, err);
+        });
+    }
+
     useEffect(() => {
         getMovieInfo();
         getMovieAwards();
+        getMovieReviews();
       }, []); 
 
     return (
@@ -94,7 +106,7 @@ const MovieDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {reviews.map((review, index) => (
-                                        <li key={index}>{review}</li>
+                                        <li key={index}>{review.text}</li>
                                     ))}
                                 </ul>
                             </Card.Text>

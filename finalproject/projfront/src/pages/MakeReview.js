@@ -19,7 +19,6 @@ const MakeReview = ({ userData }) => {
             rating: '2',
             text: content
         };
-        console.log("values", values)
         
         let config = {
             method: 'post',
@@ -32,7 +31,8 @@ const MakeReview = ({ userData }) => {
         };
         axios.request(config)
         .then((response) => {
-            console.log(JSON.stringify(response.data));    
+            console.log(response.data); 
+            navigate(`/movie/${movie.movieId}`)
         })
         .catch((error) => {
             console.error("failed to post review", error);
