@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import axios from "axios";
 
-const MovieDetail = () => {
+const MovieDetail = ({ isLoggedIn }) => {
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -140,7 +140,7 @@ const MovieDetail = () => {
                         <Card.Body>
                             <div className="d-flex justify-content-between align-items-center">
                                 <Card.Title>Reviews</Card.Title>
-                                <Button variant="secondary" onClick={handleAddReview}>Add review</Button>
+                                <Button variant="secondary" onClick={isLoggedIn ? handleAddReview : () => navigate("/sign-in")}>Add review</Button>
                             </div>
                             <Card.Text>
                                 <ul className="list-unstyled">
