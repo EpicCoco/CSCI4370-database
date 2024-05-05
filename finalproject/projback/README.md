@@ -33,5 +33,15 @@ mysqlpass
 
 Provide three test username and password pairs from your demo data
 
-
+-- passwords for each user
+-- filmer5000: stanpass
+-- cinematic28: johnpass
+-- cinophile15: shawnpass
+-- pulpfictionlover: secretpass16
+-- goodfellasbest: rw526
+-- filmfanatic234: spacecowboy
+-- lovecinema: bebop
+-- cinneman: getintherobot
+-- 657films: sandlotbest
+-- 3000tron: yourkillingmesmalls
 
