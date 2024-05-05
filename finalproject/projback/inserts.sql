@@ -92,7 +92,7 @@ BEGIN
         INSERT INTO review (reviewID, rating, text, userID, movieID, postDate)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,
-                CASE FLOOR(RAND() * 9)
+                CASE FLOOR(RAND() * 20) -- Generate random index for different review texts
                     WHEN 0 THEN 'This was bad!'
                     WHEN 1 THEN 'I like how the main character had lots of emotion!'
                     WHEN 2 THEN 'Some things were good, some were bad, some were meh'
@@ -102,7 +102,28 @@ BEGIN
                     WHEN 6 THEN 'This movie was awesome!'
                     WHEN 7 THEN 'Awkward movie, bad actors, and terrible director. Really a downfall for this type of genre'
                     WHEN 8 THEN 'Something is wrong with the movie'
-                    ELSE 'Move wus bad. Plese write bettre script next ime…'
+                    WHEN 9 THEN 'I loved the special effects but the plot was weak'
+                    WHEN 10 THEN 'The ending was unexpected and left me wanting more'
+                    WHEN 11 THEN 'Great performances from the cast, especially the lead actor'
+                    WHEN 12 THEN 'The soundtrack really added to the atmosphere of the movie'
+                    WHEN 13 THEN 'It felt like a waste of time'
+                    WHEN 14 THEN 'Amazing cinematography, but the story fell flat'
+                    WHEN 15 THEN 'I could not stop laughing throughout the entire movie!'
+                    WHEN 16 THEN 'The plot twists kept me on the edge of my seat'
+                    WHEN 17 THEN 'Worst movie I have ever seen!'
+                    WHEN 18 THEN 'The characters were so relatable'
+                    WHEN 19 THEN 'I was disappointed by the lack of originality'
+                    WHEN 20 THEN 'This movie was not good at all'
+                    WHEN 21 THEN 'The dialogue was so cheesy'
+                    WHEN 22 THEN 'I fell asleep halfway through the movie'
+                    WHEN 23 THEN 'This movie dragged on for too long'
+                    WHEN 24 THEN 'The special effects were impressive'
+                    WHEN 25 THEN 'The story was captivating from start to finish'
+                    WHEN 26 THEN 'I could not connect with any of the characters'
+                    WHEN 27 THEN 'The ending left me with more questions than answers'
+                    WHEN 28 THEN 'The acting was subpar'
+                    WHEN 29 THEN 'The plot was predictable'
+                    ELSE 'This movie was not my cup of tea'
                 END,
                 FLOOR(RAND() * 10) + 1,
                 FLOOR(RAND() * 10) + 1,
