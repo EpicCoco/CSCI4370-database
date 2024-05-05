@@ -37,7 +37,7 @@ function App() {
           <Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn}/>} />
           <Route path="/actor/:id" element={<ActorDetail />} />
           <Route path="/award/:id" element={<AwardDetail />} />
-          <Route path="/user/:id" element={<UserDetail />} />
+          <Route path="/user/:id" element={<UserDetail userData={userData}/>} />
 
           {/** <Route path="/movie/:id" element={<MovieDetail isLoggedIn={loggedIn} />} /> */}
           <Route path="*" element={<NotFound />} />

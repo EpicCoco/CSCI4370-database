@@ -37,7 +37,7 @@ create table if not exists review (
     userID int,
     movieID int,
     postDate date,
-    foreign key(userID) references user(userID),
+    foreign key(userID) references user(userID) on delete cascade,
     foreign key(movieID) references movie(movieID)
 );
 
