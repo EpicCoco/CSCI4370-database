@@ -15,8 +15,9 @@ Award list given movie/actor (award page)
 Present every review given a movie (movie page)
 
 Codey:
-In Movie page: present top number of actors based on NUMBER OF AWARDS
-react frontend, backend
+Served as project team lead
+Create frontend in React
+Assist with creating routes/services on backend
 
 
 Technologies you used including 3rd party libraries.
