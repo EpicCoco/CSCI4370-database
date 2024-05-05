@@ -57,10 +57,22 @@ const MovieDetail = () => {
         });
     }
 
+    const getMovieActors = () => {
+        axios.get(`http://localhost:8080/api/actor/${id}/actors`)
+        .then(res => {
+            console.log("actors data", res.data);
+            setActors(res.data);
+        })
+        .catch(err => {
+            console.error(`Error with movie ${id} actors`, err);
+        });
+    }
+
     useEffect(() => {
         getMovieInfo();
         getMovieAwards();
         getMovieReviews();
+        getMovieActors();
       }, []); 
 
     return (
@@ -75,7 +87,7 @@ const MovieDetail = () => {
                                 <ul className="list-unstyled">
                                     {/** How I think I wanna do linking to actor page */}
                                     {actors.map((actor, index) => (
-                                        <Link to={`/actor/${actor.id}`}><li key={index}>{actor}</li></Link> 
+                                        <Link to={`/actor/${actor.actorId}`}><li key={index}>{actor.fname} {actor.lname}</li></Link> 
                                     ))}
                                 </ul>
                             </Card.Text>
