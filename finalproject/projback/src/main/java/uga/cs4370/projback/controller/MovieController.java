@@ -1,11 +1,13 @@
 package uga.cs4370.projback.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -98,6 +100,13 @@ public class MovieController {
             System.out.println(exception.getMessage());
             return null;
         }
+    }
+
+    @GetMapping("/getpass")
+    public String generateHash(@RequestParam("password") String password) throws UnsupportedEncodingException {
+        // Passwords should have at least 3 chars.
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
 }
