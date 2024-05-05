@@ -63,7 +63,7 @@ public class MovieService {
     }
 
     public List<Review> getMovieReviews(String movieId) throws SQLException {
-        final String sql = "select * from review where movieID = ? limit 20";
+        final String sql = "select * from review where movieID = ? order by postDate desc limit 20";
         List<Review> reviews = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -154,10 +154,10 @@ public class MovieService {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     String avg = rs.getString("avg(rating)");
-                    System.out.println("INITIAL STRING: " + avg);
+                    //System.out.println("INITIAL STRING: " + avg);
                     float avg2 = Float.parseFloat(avg);
                     DecimalFormat df = new DecimalFormat("#.##");
-                    System.out.println("FINAL STRING: " + df.format(avg2));
+                    //System.out.println("FINAL STRING: " + df.format(avg2));
                     return df.format(avg2);
                 }
             }

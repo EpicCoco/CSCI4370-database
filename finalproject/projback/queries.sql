@@ -48,7 +48,7 @@ select * from movie where movieID = ?;
 -- This query retrieves information from a review about a certain movie, limiting the 
 -- number of seen reviews by 20
 -- URL path: http://localhost:8080/api/movie/reviews/{movieId}
-select * from review where movieID = ? limit 20; 
+select * from review where movieID = ? order by postDate desc limit 20; 
 
 -- Query description:
 -- This query gets all information from all given movie

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import axios from "axios";
 
-const UserDetail = ({ userData }) => {
+const UserDetail = ({ userData, setLoggedIn }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [user, setUser] = useState({});
@@ -35,6 +35,7 @@ const UserDetail = ({ userData }) => {
             axios.delete(`http://localhost:8080/api/user/${id}`)
                 .then((res) => {
                     console.log("user deleted", res);
+                    setLoggedIn(false);
                     navigate("/");
                 })
                 .catch(err => {
