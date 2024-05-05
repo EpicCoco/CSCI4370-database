@@ -8,15 +8,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 
 import uga.cs4370.projback.models.*;
 
@@ -54,11 +48,6 @@ public class UserService {
 
 
 public boolean authenticate(String username, String password) throws SQLException {
-        // This query gets all users OTHER THAN the user passed in by "username" parameter
-        // this query is used by the authenticate route
-        // The route that uses this is the authenticate route, which passes in the 
-        // username and password and checks to see if that exists in the database.
-        // http://localhost:8081/login
         final String sql = "select * from user where username = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -111,12 +100,7 @@ public boolean authenticate(String username, String password) throws SQLExceptio
         return loggedInUser;
     }
 
-    public boolean registerUser(String username, String password, String firstName, String lastName)
-            throws SQLException {
-        // This sql query inserts a new user into the database.
-        // It is used to register a new user to the platform
-        // The route that uses it is register, which passes in all of the user info
-        // http://localhost:8081/register
+    public boolean registerUser(String username, String password, String firstName, String lastName) throws SQLException {
         final String registerSql = "insert into user (username, password, firstName, lastName) values (?, ?, ?, ?)";
 
         try (Connection conn = dataSource.getConnection();
@@ -157,12 +141,6 @@ public boolean authenticate(String username, String password) throws SQLExceptio
     }
 
     public User getUserById(int userId) throws SQLException {
-        //this sql query selects one specific user by their userid
-        // from the database 
-        // it is used by post and profile pages to get specific user
-        // info. 
-        //EX URL: http://localhost:8081/profile/1
-        //The userid here is "1"
         final String sql = "select * from user where userId = ?";
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -179,6 +157,20 @@ public boolean authenticate(String username, String password) throws SQLExceptio
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean deleteUser(int userId) throws SQLException {
+        final String sql = "delete from user where userID = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, userId);
+                int numChanged = pstmt.executeUpdate();
+                if (numChanged > 0) return true;
+                return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
