@@ -60,7 +60,7 @@ const MovieDetail = () => {
     const getMovieActors = () => {
         axios.get(`http://localhost:8080/api/actor/${id}/actors`)
         .then(res => {
-            console.log("actors data", res.data);
+            //console.log("actors data", res.data);
             setActors(res.data);
         })
         .catch(err => {
