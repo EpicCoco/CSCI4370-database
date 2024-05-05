@@ -165,4 +165,20 @@ public class MovieService {
         }
     }
 
+    public String getCountByGenre(String genre) throws SQLException {
+        final String sql = "select count(rating) from review r join movie m where r.movieID = m.movieID and genre = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, genre);
+            System.out.println("ATTEMPTING SQL QUERY");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String count = rs.getString("count(rating)");
+                    return count;
+                }
+            }
+            return null; // If no movie found with the given ID
+        }
+    }
+
 }

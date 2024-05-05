@@ -37,7 +37,7 @@ public class UserController {
         return profileOfSpecificUser(userService.getLoggedInUser().getUserId());
     }
 
-     @GetMapping("/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<User> profileOfSpecificUser(@PathVariable("userId") String userId) throws SQLException {
         User tempUser = userService.getUserById(Integer.parseInt(userId));
         if (tempUser != null) return ResponseEntity.ok(tempUser);
@@ -45,4 +45,16 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/reviews/{userId}")
+    public List<Review> userReviews(@PathVariable("userId") String userId) throws SQLException {
+        try {
+            return userService.reviewList(userId);
+        } catch (SQLException exception) {
+            System.out.println("Error retrieving review list for user with id: " + userId + ", SQL Exception");
+            System.out.println(exception.getMessage());
+            return null;
+        }
+    }
+
 }
