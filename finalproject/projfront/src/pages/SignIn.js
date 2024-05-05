@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 const SignIn = () => {
-  const [setLoggedIn, setUserData] = useContext(UserContext);
+  const [loggedIn, setLoggedIn, userData, setUserData] = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

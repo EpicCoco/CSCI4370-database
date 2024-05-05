@@ -71,16 +71,16 @@ insert into award (awardID, awardName, movieID, actorID) values ('15', 'Doris Du
 insert into award (awardID, awardName, movieID, actorID) values ('16', 'Doris Duke Performing Artist Award', '4', '8');
 insert into award (awardID, awardName, movieID, actorID) values ('17', 'Doris Duke Performing Artist Award', '1', '1');
 
-insert into user (userID, username, firstName, lastName, password) values ('1', 'filmer5000', 'Stanley', 'Brown', '$2a$10$wIpF61JIwd9j4gJ6hIb/PO51JVrgKKBFqiLtTfOdTacUff9jRwHYy');
-insert into user (userID, username, firstName, lastName, password) values ('2', 'cinematic28', 'John', 'Johnson', '$2a$10$j2m0k/zH2iJPFXOU6.5AtuQJvJKhu1yMgLHqETO768JWh/uQ0uaku');
-insert into user (userID, username, firstName, lastName, password) values ('3', 'cinophile15', 'Shawn', 'Riley', '$2a$10$BF/pxUa4p/IKwiLH6Yw66ub7v1yl4wrwOyN4wPq48brvoCE0jls8W');
-insert into user (userID, username, firstName, lastName, password) values ('4', 'pulpfictionlover', 'Shawnathan', 'Shawnson', '$2a$10$.gT8HnLjJvJ0j8zWwsU42OAOPR3sNhMNH4LKOG/LfvLuk0GF1gaKm');
-insert into user (userID, username, firstName, lastName, password) values ('5', 'goodfellasbest', 'Ryan', 'Williams', '$2a$10$pWzQmCiw3c9.0.hZL0To/.Sh096GTT6k7Dor9PxNC4lh5XuVY9wvy');
-insert into user (userID, username, firstName, lastName, password) values ('6', 'filmfanatic234', 'Spike', 'Spiegel', '$2a$10$lBV0mjqCwkwB4LW7YMtwOO7xW3B5xcu2mTuyur0BMQmzF74003YBa');
-insert into user (userID, username, firstName, lastName, password) values ('7', 'lovecinema', 'Fae', 'Valentine', '$2a$10$boMqcQm.Y7m1jMexcomKRe2bakX9sN8rmTWcaeX08sVZgWplc04bK');
-insert into user (userID, username, firstName, lastName, password) values ('8', 'cinneman', 'Shinji', 'Ikari', '$2a$10$Y7MsNOJ5X5gohFXvef2J4uRXJS82RL7lSMKp0NnpdfQ4Fn8PIogWO');
-insert into user (userID, username, firstName, lastName, password) values ('9', '657films', 'Scotty', 'Smalls', '$2a$10$cCD8mfYDcgh6ZCxlKy8Ed.rKgaonDhUxqoqkEg3tttEPaaW9vgB/O');
-insert into user (userID, username, firstName, lastName, password) values ('10', '3000tron', 'Timmy', 'Timmons', '$2a$10$D4gxE8eFMwp1d0wS9eaLI.9h23sgCIrgTYaxrS0XO0lJYYcBvhN92');
+insert into user (userID, username, firstName, lastName, password) values ('1', 'filmer5000', 'Stanley', 'Brown', "$2a$10$wIpF61JIwd9j4gJ6hIb/PO51JVrgKKBFqiLtTfOdTacUff9jRwHYy");
+insert into user (userID, username, firstName, lastName, password) values ('2', 'cinematic28', 'John', 'Johnson', "$2a$10$j2m0k/zH2iJPFXOU6.5AtuQJvJKhu1yMgLHqETO768JWh/uQ0uaku");
+insert into user (userID, username, firstName, lastName, password) values ('3', 'cinophile15', 'Shawn', 'Riley', "$2a$10$BF/pxUa4p/IKwiLH6Yw66ub7v1yl4wrwOyN4wPq48brvoCE0jls8W");
+insert into user (userID, username, firstName, lastName, password) values ('4', 'pulpfictionlover', 'Shawnathan', 'Shawnson', "$2a$10$.gT8HnLjJvJ0j8zWwsU42OAOPR3sNhMNH4LKOG/LfvLuk0GF1gaKm");
+insert into user (userID, username, firstName, lastName, password) values ('5', 'goodfellasbest', 'Ryan', 'Williams', "$2a$10$pWzQmCiw3c9.0.hZL0To/.Sh096GTT6k7Dor9PxNC4lh5XuVY9wvy");
+insert into user (userID, username, firstName, lastName, password) values ('6', 'filmfanatic234', 'Spike', 'Spiegel', "$2a$10$lBV0mjqCwkwB4LW7YMtwOO7xW3B5xcu2mTuyur0BMQmzF74003YBa");
+insert into user (userID, username, firstName, lastName, password) values ('7', 'lovecinema', 'Fae', 'Valentine', "$2a$10$boMqcQm.Y7m1jMexcomKRe2bakX9sN8rmTWcaeX08sVZgWplc04bK");
+insert into user (userID, username, firstName, lastName, password) values ('8', 'cinneman', 'Shinji', 'Ikari', "$2a$10$Y7MsNOJ5X5gohFXvef2J4uRXJS82RL7lSMKp0NnpdfQ4Fn8PIogWO");
+insert into user (userID, username, firstName, lastName, password) values ('9', '657films', 'Scotty', 'Smalls', "$2a$10$cCD8mfYDcgh6ZCxlKy8Ed.rKgaonDhUxqoqkEg3tttEPaaW9vgB/O");
+insert into user (userID, username, firstName, lastName, password) values ('10', '3000tron', 'Timmy', 'Timmons', "$2a$10$D4gxE8eFMwp1d0wS9eaLI.9h23sgCIrgTYaxrS0XO0lJYYcBvhN92");
 
 -- passwords for each user
 -- filmer5000: stanpass
