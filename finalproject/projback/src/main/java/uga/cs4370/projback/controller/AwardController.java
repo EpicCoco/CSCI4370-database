@@ -67,7 +67,7 @@ public class AwardController {
         try {
             return awardService.getActorAwards(actorId);
         } catch (SQLException exception) {
-            System.out.println("Error retrieving reviews for actor with id: " + actorId + ", SQL Exception");
+            System.out.println("Error retrieving awards for actor with id: " + actorId + ", SQL Exception");
             System.out.println(exception.getMessage());
             return null;
         }

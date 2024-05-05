@@ -54,7 +54,7 @@ public class ReviewService {
     }
 
     public List<Review> getReviewByUser(String userId) throws SQLException{
-        final String sql = "select * from review where userID = ? order by postDate desc";
+        final String sql = "select * from review where userID = ? order by postDate desc limit 20";
         List<Review> reviewList = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -76,7 +76,7 @@ public class ReviewService {
     }
 
     public List<Review> getReviewByMovie(String movieId) throws SQLException{
-        final String sql = "select * from review where movieID = ? order by postDate desc";
+        final String sql = "select * from review where movieID = ? order by postDate desc limit 20";
         List<Review> reviewList = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
