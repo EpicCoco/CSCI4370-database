@@ -1,0 +1,22 @@
+Observe the Functional Dependencies of our project for each table, and how they adhere to BCNF
+
+User Table:
+  userID -> username, password, firstName, lastName
+[userID is a candidate key for the table, so this FD adheres to BCNF]
+
+Movie Table:
+  movieID -> title, genre, releaseDate
+[movieID is a candidate key for the table, so this FD adheres to BCNF]
+
+Actor Table:
+  actorID -> firstName, lastName, age
+[actorID is a candidate key for the table, so this FD adheres to BCNF]
+
+Review Table:
+  reviewID -> rating, text, postDate, movieID, userID
+[reviewID is a candidate key for the table, so this FD adheres to BCNF]
+
+Award Table:
+  awardID -> awardName, movieID, actorID
+[awardID is a candidate key for the table, so this FD adheres to BCNF]
+
