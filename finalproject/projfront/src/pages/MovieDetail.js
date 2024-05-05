@@ -124,7 +124,7 @@ const MovieDetail = ({ isLoggedIn }) => {
                             <Card.Title>Awards</Card.Title>
                             <ul className="list-unstyled">
                                 {awards.map((award, index) => (
-                                    <li key={index}>{award.awardName}</li>
+                                    <Link to={`/award/${award.awardId}`}><li key={index}>{award.awardName}</li></Link> 
                                 ))}
                             </ul>
                         </Card.Body>
