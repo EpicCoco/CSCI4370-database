@@ -1,4 +1,8 @@
 Statements used to create indexes:
+IMPORTANT NOTE: these indexes were created with the reviews table having
+100,000 rows, results will vary when using these commands with a smaller 
+review table (for time purposes we have the number of rows to 10,000 instead
+of 100,000).
 
 create index col1_index_01 on review(rating); 
 create index col1_index_02 on review(movieID); 
