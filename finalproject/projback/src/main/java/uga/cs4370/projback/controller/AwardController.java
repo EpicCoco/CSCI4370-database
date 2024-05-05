@@ -73,15 +73,4 @@ public class AwardController {
         }
     }
 
-    @GetMapping("/count")
-    public String getAwardCount(@RequestParam("awardName") String awardName) {
-        try {
-            return awardService.getAwardCount(awardName);
-        } catch (SQLException exception) {
-            System.out.println("Error calculating count award with name: " + awardName + ", SQL Exception");
-            System.out.println(exception.getMessage());
-            return null;
-        }
-    }
-
 }
