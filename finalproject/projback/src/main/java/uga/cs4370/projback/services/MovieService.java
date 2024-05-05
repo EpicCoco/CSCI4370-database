@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.security.Timestamp;
 
+import java.text.DecimalFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +144,26 @@ public class MovieService {
             }
             return null; // If no movie found with the given ID
         }
-    }    
+    }
+
+    public String getMovieAvgRating(String movieId) throws SQLException {
+        final String sql = "select avg(rating) from review where movieID = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, movieId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // MovieID Title Genre ReleaseDate
+                    String avg = rs.getString("avg(rating)");
+                    System.out.println("INITIAL STRING: " + avg);
+                    float avg2 = Float.parseFloat(avg);
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    System.out.println("FINAL STRING: " + df.format(avg2));
+                    return df.format(avg2);
+                }
+            }
+            return null; // If no movie found with the given ID
+        }
+    }
 
 }

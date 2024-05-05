@@ -77,4 +77,15 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/avg/{movieId}")
+    public String getMovieAvgRating(@PathVariable("movieId") String movieId) {
+        try {
+            return movieService.getMovieAvgRating(movieId);
+        } catch (SQLException exception) {
+            System.out.println("Error calculating avg rating for movie with id: " + movieId + ", SQL Exception");
+            System.out.println(exception.getMessage());
+            return null;
+        }
+    }
+
 }
