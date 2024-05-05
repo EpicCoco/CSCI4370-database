@@ -153,7 +153,6 @@ public class MovieService {
             pstmt.setString(1, movieId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    // MovieID Title Genre ReleaseDate
                     String avg = rs.getString("avg(rating)");
                     System.out.println("INITIAL STRING: " + avg);
                     float avg2 = Float.parseFloat(avg);

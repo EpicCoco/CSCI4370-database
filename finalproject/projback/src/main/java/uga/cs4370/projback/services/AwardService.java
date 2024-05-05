@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -98,6 +99,21 @@ public class AwardService {
             //System.out.println("Num reviews:");
             //System.out.println(reviews.size());
             return awards;
+        }
+    }
+
+    public String getAwardCount(String awardName) throws SQLException {
+        final String sql = "select count(awardID) from award where awardName = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, awardName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String count = rs.getString("count(awardID)");
+                    return count;
+                }
+            }
+            return null; // If no movie found with the given ID
         }
     }
 

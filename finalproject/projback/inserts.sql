@@ -64,6 +64,13 @@ insert into award (awardID, awardName, movieID, actorID) values ('7', 'Empire Aw
 insert into award (awardID, awardName, movieID, actorID) values ('8', 'IIFA Award for Star Debut of the Year', '10', '20');
 insert into award (awardID, awardName, movieID, actorID) values ('9', 'Golden Horse Award for Best Performer', '4', '8');
 insert into award (awardID, awardName, movieID, actorID) values ('10', 'Golden Lotus Actor Award', '10', '19');
+insert into award (awardID, awardName, movieID, actorID) values ('11', 'Golden Boot Actor Award', '7', '14');
+insert into award (awardID, awardName, movieID, actorID) values ('12', 'Golden Boot Actor Award', '2', '4');
+insert into award (awardID, awardName, movieID, actorID) values ('13', 'Doris Duke Performing Artist Award', '3', '5');
+insert into award (awardID, awardName, movieID, actorID) values ('14', 'Doris Duke Performing Artist Award', '10', '19');
+insert into award (awardID, awardName, movieID, actorID) values ('15', 'Doris Duke Performing Artist Award', '9', '18');
+insert into award (awardID, awardName, movieID, actorID) values ('16', 'Doris Duke Performing Artist Award', '4', '8');
+insert into award (awardID, awardName, movieID, actorID) values ('17', 'Doris Duke Performing Artist Award', '1', '1');
 
 insert into user (userID, username, firstName, lastName, password) values ('1', 'filmer5000', 'Stanley', 'Brown', 'stanpass');
 insert into user (userID, username, firstName, lastName, password) values ('2', 'cinematic28', 'John', 'Johnson', 'johnpass');

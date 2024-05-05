@@ -44,7 +44,7 @@ create table if not exists review (
 -- Create Award Table
 create table if not exists award (
     awardID int auto_increment primary key,
-    awardName varchar(50) not null unique,
+    awardName varchar(50) not null,
     movieID int not null,
     actorID int,
     foreign key(actorID) references actor(actorID),
