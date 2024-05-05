@@ -176,6 +176,9 @@ public boolean authenticate(String username, String password) throws SQLExceptio
                 String lastName = rs.getString("lastName");
                 return new User(userIdStr, username, firstName, lastName);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

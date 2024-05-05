@@ -33,18 +33,14 @@ public class UserController {
     }
 
     @GetMapping("/logged-in")
-    public ResponseEntity<String> profileOfLoggedInUser() throws SQLException {
-        System.out.println("User is attempting to view profile of the logged in user.");
+    public ResponseEntity<User> profileOfLoggedInUser() throws SQLException {
         return profileOfSpecificUser(userService.getLoggedInUser().getUserId());
     }
 
      @GetMapping("/{userId}")
-    public ResponseEntity<String> profileOfSpecificUser(@PathVariable("userId") String userId) throws SQLException {
-        System.out.println("User is attempting to view profile: " + userId);
-        // See notes on ModelAndView in BookmarksController.java.
-        if (!userService.reviewList(userId).equals(null)) {
-            return ResponseEntity.ok("posts_page");
-        }
+    public ResponseEntity<User> profileOfSpecificUser(@PathVariable("userId") String userId) throws SQLException {
+        User tempUser = userService.getUserById(Integer.parseInt(userId));
+        if (tempUser != null) return ResponseEntity.ok(tempUser);
         else {
             return ResponseEntity.notFound().build();
         }
