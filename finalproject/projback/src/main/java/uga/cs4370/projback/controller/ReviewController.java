@@ -41,7 +41,7 @@ public class ReviewController {
             @RequestParam("text") String text) throws SQLException {
         try {
             if (reviewService.makeReview(rating, text, movieID, userID)) {
-                return ResponseEntity.ok("Successfully logged in");
+                return ResponseEntity.ok("Successfully created review");
             }
             else {
                 return ResponseEntity.badRequest().build();

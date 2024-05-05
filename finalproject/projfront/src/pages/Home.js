@@ -14,7 +14,7 @@ const Home = () => {
 
   
   useEffect(() => {
-    axios.get('http://localhost:8080/api/movie/movies')
+    axios.get('http://localhost:8080/api/movie')
       .then((response) => {
         setMovies(response.data);
       })
