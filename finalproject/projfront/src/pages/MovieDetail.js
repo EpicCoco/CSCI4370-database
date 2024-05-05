@@ -13,7 +13,8 @@ const MovieDetail = () => {
     // temporary values for Actors, Awards, and Reviews
     const [actors, setActors] = useState(['John', 'Mike', 'Dave']);
     const [awards, setAwards] = useState(['Best Picture', 'Best Director', 'Best Actor']);
-    const [reviews, setReviews] = useState(['I liked it', 'Mid', 'womp womp']);
+    const [reviews, setReviews] = useState(['I liked it']);
+    const [avgReview, setAvgReview] = useState(0.0);
 
     const handleAddReview = () => {
         //go to review with the movie's info passed thru
@@ -68,16 +69,42 @@ const MovieDetail = () => {
         });
     }
 
+    const getAverageReview = () => {
+        axios.get(`http://localhost:8080/api/movie/avg/${id}`)
+        .then(res => {
+            //console.log("avg review data", res.data);
+            setAvgReview(res.data);
+        })
+        .catch(err => {
+            console.error(`Error with movie ${id} avg`, err);
+        });
+    }
+
     useEffect(() => {
         getMovieInfo();
         getMovieAwards();
         getMovieReviews();
         getMovieActors();
+        getAverageReview();
       }, []); 
 
     return (
         <Container className="mt-4 justify-content-center">
             <h1 className="mb-4">{movie.title ? movie.title : "Movie Detail"}</h1>
+            <Row className="mb-4">
+                <Col>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Movie Info</Card.Title>
+                            <Card.Text>
+                                <p><strong>Title:</strong> {movie.title}</p>
+                                <p><strong>Genre:</strong> {movie.genre}</p>
+                                <p><strong>Average Review:</strong> {avgReview == 0 ? "No reviews yet" : avgReview}</p>
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
             <Row>
                 <Col>
                     <Card>
