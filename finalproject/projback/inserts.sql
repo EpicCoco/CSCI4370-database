@@ -85,7 +85,7 @@ insert into user (userID, username, firstName, lastName, password) values ('10',
 
 DELIMITER $$
 
-CREATE PROCEDURE generate_reviews()
+CREATE PROCEDURE generate_reviews11()
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < 100000 DO
@@ -113,4 +113,4 @@ END$$
 
 DELIMITER ;
 
-CALL generate_reviews();
+CALL generate_reviews11();

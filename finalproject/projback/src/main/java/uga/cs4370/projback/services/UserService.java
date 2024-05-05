@@ -137,7 +137,7 @@ public boolean authenticate(String username, String password) throws SQLExceptio
     public List<Review> reviewList(String userId) throws SQLException{
         List<Review> reviewList = new ArrayList<>();
 
-        String sql = "select * from review where userId = ? order by postDate desc";
+        String sql = "select * from review where userId = ? order by postDate desc limit 20";
         try (Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userId);
