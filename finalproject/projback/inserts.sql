@@ -78,11 +78,11 @@ insert into user (userID, username, firstName, lastName, password) values ('10',
 
 DELIMITER $$
 
-CREATE PROCEDURE generate_reviews2()
+CREATE PROCEDURE generate_reviews()
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < 10000 DO
-        INSERT INTO review (reviewID, rating, text, userID, movieID)
+        INSERT INTO review (reviewID, rating, text, userID, movieID, postDate)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,
                 CASE FLOOR(RAND() * 9)
@@ -98,7 +98,8 @@ BEGIN
                     ELSE 'Move wus bad. Plese write bettre script next ime…'
                 END,
                 FLOOR(RAND() * 10) + 1,
-                FLOOR(RAND() * 10) + 1);
+                FLOOR(RAND() * 10) + 1,
+                DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 1826) DAY));
         SET i = i + 1;
     END WHILE;
 END$$
