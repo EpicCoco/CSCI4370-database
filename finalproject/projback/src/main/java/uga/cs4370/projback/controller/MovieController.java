@@ -88,4 +88,16 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/genrecount")
+    public String getReviewCountByGenre(@RequestParam("genre") String genre) {
+        try {
+            System.out.println("ATTEMPTING ROUTE CALL");
+            return movieService.getCountByGenre(genre);
+        } catch (SQLException exception) {
+            System.out.println("Error calculating review count for genre with name: " + genre + ", SQL Exception");
+            System.out.println(exception.getMessage());
+            return null;
+        }
+    }
+
 }
