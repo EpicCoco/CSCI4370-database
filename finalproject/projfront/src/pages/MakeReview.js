@@ -3,28 +3,41 @@ import { Container, Form, Button, Row, Col, Card, InputGroup } from 'react-boots
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
-const MakeReview = () => {
+const MakeReview = ({ userData }) => {
     const navigate = useNavigate();
     const location = useLocation();
     //take in movie from prev screen - need id to make post request
     const { movie } = location.state || {};
     
     const [content, setContent] = useState('');
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            //add associated movie id to review when posting
-            const movieId = movie.movieId;
-            const response = await axios.post('http://localhost:8080/api/review', {
-                content,
-                movieId //could be wrong - double check
-            });
-            console.log('Review created:', response.data);
-            navigate("/")
-        } catch (error) {
-            console.error('Error creating review:', error);
-        }
+
+        let values = {
+            userID: userData.userId,
+            movieID: movie.movieId,
+            rating: '2',
+            text: content
+        };
+        console.log("values", values)
+        
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8080/api/review',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            params: values
+        };
+        axios.request(config)
+        .then((response) => {
+            console.log(JSON.stringify(response.data));    
+        })
+        .catch((error) => {
+            console.error("failed to post review", error);
+        })
+
     };
 
     return (

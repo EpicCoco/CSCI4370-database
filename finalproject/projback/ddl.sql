@@ -36,6 +36,7 @@ create table if not exists review (
     text varchar(200) not null,
     userID int,
     movieID int,
+    postDate date,
     foreign key(userID) references user(userID),
     foreign key(movieID) references movie(movieID)
 );

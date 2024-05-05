@@ -43,7 +43,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           {loggedIn && 
           <>
-          <Route path="/review/" element={<MakeReview />} />
+          <Route path="/review/" element={<MakeReview userData={userData} />} />
           </>}
         </Routes>
       </BrowserRouter>

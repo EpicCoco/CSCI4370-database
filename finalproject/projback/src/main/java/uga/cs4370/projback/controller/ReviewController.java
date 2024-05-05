@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -34,7 +35,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<String> makeReviewPage(@RequestParam("userID") String userID,
             @RequestParam("movieID") String movieID, @RequestParam("rating") String rating,
             @RequestParam("text") String text) throws SQLException {
