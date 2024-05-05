@@ -11,7 +11,7 @@ const UserDetail = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/${id}`)
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 setUser(res.data);
             })
             .catch(err => {

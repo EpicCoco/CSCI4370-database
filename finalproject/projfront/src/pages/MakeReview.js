@@ -6,20 +6,22 @@ import axios from 'axios';
 const MakeReview = ({ userData }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    //take in movie from prev screen - need id to make post request
+    // Take in movie from prev screen - need id to make post request
     const { movie } = location.state || {};
-    
+
     const [content, setContent] = useState('');
+    const [rating, setRating] = useState(1);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         let values = {
             userID: userData.userId,
             movieID: movie.movieId,
-            rating: '2',
+            rating: rating, 
             text: content
         };
-        
+
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -29,14 +31,15 @@ const MakeReview = ({ userData }) => {
             },
             params: values
         };
+
         axios.request(config)
-        .then((response) => {
-            console.log(response.data); 
-            navigate(`/movie/${movie.movieId}`)
-        })
-        .catch((error) => {
-            console.error("failed to post review", error);
-        })
+            .then((response) => {
+                console.log(response.data);
+                navigate(`/movie/${movie.movieId}`)
+            })
+            .catch((error) => {
+                console.error("failed to post review", error);
+            })
 
     };
 
@@ -50,7 +53,7 @@ const MakeReview = ({ userData }) => {
                                 Make a Review
                             </Card.Title>
                             <Card.Text className="text-center">
-                            {`What are your thoughts on ${movie.title}?`}
+                                {`What are your thoughts on ${movie.title}?`}
                             </Card.Text>
                             <Card.Body>
                                 <Form onSubmit={handleSubmit}>
@@ -68,7 +71,19 @@ const MakeReview = ({ userData }) => {
                                             </InputGroup>
                                         </div>
                                     </Form.Group>
-                                    <div style={{padding: "8px"}} />
+                                    <div style={{ padding: "8px" }} />
+                                    <Form.Group controlId="formRating" className="vertical-spacing">
+                                        <Form.Label>Rating: {rating}</Form.Label>
+                                        <input
+                                            type="range"
+                                            className="form-range"
+                                            min={1}
+                                            max={5}
+                                            value={rating}
+                                            onChange={(e) => setRating(parseInt(e.target.value))}
+                                        />
+                                    </Form.Group>
+                                    <div style={{ padding: "8px" }} />
                                     <Button variant="primary" type="submit" style={{ width: "100%" }}>
                                         Submit
                                     </Button>
