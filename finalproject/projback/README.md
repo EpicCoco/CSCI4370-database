@@ -1,8 +1,29 @@
 Members: Ryan Albright, Codey Borelli, Zach Bloodworth, Jude Mullins
 
-Ryan: worked on ActorController, database creation, backend
-Codey: worked on front end, actorService, models
-Zach: worked on controllers, queries, awardservice, backend
-Jude: worked on bcnf, database creation
+ryan: 
+Think up meaningful ways to implement indexing (at least 2)  
+Movies given a certain actor (actor page)
+Actors with 10+ awards (or return all ratings for an actor/movie) (actor page) - Ryan
+
+Jude: 
+Overall review rating given a movie (movie page)
+JOIN, Aggregate (avg)
+Present every review given by a user (user page)
+
+Zach:
+Award list given movie/actor (award page) 
+Present every review given a movie (movie page)
+
+Codey:
+In Movie page: present top number of actors based on NUMBER OF AWARDS
+react frontend, backend
+
+
+Technologies you used including 3rd party libraries.
+
+Include the database name, database username and the password you used for the JDBC connection.
+
+Provide three test username and password pairs from your demo data
+
 
 
