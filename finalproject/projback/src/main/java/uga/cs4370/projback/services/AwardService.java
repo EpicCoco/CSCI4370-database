@@ -102,19 +102,4 @@ public class AwardService {
         }
     }
 
-    public String getAwardCount(String awardName) throws SQLException {
-        final String sql = "select count(awardID) from award where awardName = ?";
-        try (Connection conn = dataSource.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, awardName);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    String count = rs.getString("count(awardID)");
-                    return count;
-                }
-            }
-            return null; // If no movie found with the given ID
-        }
-    }
-
 }
