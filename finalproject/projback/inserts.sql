@@ -10,6 +10,7 @@ insert into movie (movieID, title, genre, releaseDate) values ('9', 'Shazam', 'A
 insert into movie (movieID, title, genre, releaseDate) values ('10', 'Endgame', 'Action', '2019-04-26');
 
 insert into actor (actorID, firstName, lastName, age) values ('1', 'Charlie', 'Day', 32);
+insert into actor (actorID, firstName, lastName, age) values ('91', 'codey', 'Bortellini', 41);
 insert into actor (actorID, firstName, lastName, age) values ('2', 'Charlie', 'Hunnam', 37);
 insert into actor (actorID, firstName, lastName, age) values ('3', 'Scarlett', 'Johansson', 39);
 insert into actor (actorID, firstName, lastName, age) values ('4', 'Jason', 'Shwartzman', 45);
@@ -31,6 +32,7 @@ insert into actor (actorID, firstName, lastName, age) values ('19', 'Robert', 'D
 insert into actor (actorID, firstName, lastName, age) values ('20', 'Chris', 'Evans', 39);
 
 insert into actorMovie (actorID, movieID) values ('1', '1');
+insert into actorMovie (actorID, movieID) values ('91', '1');
 insert into actorMovie (actorID, movieID) values ('2', '1');
 insert into actorMovie (actorID, movieID) values ('3', '2');
 insert into actorMovie (actorID, movieID) values ('4', '2');
@@ -50,6 +52,7 @@ insert into actorMovie (actorID, movieID) values ('17', '9');
 insert into actorMovie (actorID, movieID) values ('18', '9');
 insert into actorMovie (actorID, movieID) values ('19', '10');
 insert into actorMovie (actorID, movieID) values ('20', '10');
+
 
 insert into award (awardID, awardName, movieID, actorID) values ('1', 'Canadian Screen Award for Best Actor', '3', '6');
 insert into award (awardID, awardName, movieID) values ('2', 'Best Screenplay', '1');
@@ -73,16 +76,13 @@ insert into user (userID, username, firstName, lastName, password) values ('8', 
 insert into user (userID, username, firstName, lastName, password) values ('9', '657films', 'Scotty', 'Smalls', 'sandlotbest');
 insert into user (userID, username, firstName, lastName, password) values ('10', '3000tron', 'Timmy', 'Timmons', 'yourkillingmesmalls');
 
-insert into movie (movieID, title, genre, releaseDate) values ('11', 'TEST', 'Test', '2019-04-26');
-insert into review (rating, text, userID, movieID) values ("1", "lollol", "3", "11");
-
 DELIMITER $$
 
-CREATE PROCEDURE generate_reviews9()
+CREATE PROCEDURE generate_reviews2()
 BEGIN
     DECLARE i INT DEFAULT 0;
-    WHILE i < 1000 DO
-        INSERT INTO review (reviewID, rating, text, userID, movieID, postDate)
+    WHILE i < 10000 DO
+        INSERT INTO review (reviewID, rating, text, userID, movieID)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,
                 CASE FLOOR(RAND() * 9)
@@ -98,12 +98,11 @@ BEGIN
                     ELSE 'Move wus bad. Plese write bettre script next ime…'
                 END,
                 FLOOR(RAND() * 10) + 1,
-                FLOOR(RAND() * 10) + 1,
-                DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 1826) DAY));
+                FLOOR(RAND() * 10) + 1);
         SET i = i + 1;
     END WHILE;
 END$$
 
 DELIMITER ;
 
-CALL generate_reviews9();
+CALL generate_reviews();
