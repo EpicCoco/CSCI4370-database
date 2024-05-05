@@ -99,7 +99,7 @@ const MovieDetail = ({ isLoggedIn }) => {
                             <Card.Text>
                                 <p><strong>Title:</strong> {movie.title}</p>
                                 <p><strong>Genre:</strong> {movie.genre}</p>
-                                <p><strong>Average Review:</strong> {avgReview == 0 ? "No reviews yet" : avgReview}</p>
+                                <p><strong>Average Review:</strong> {avgReview === 0 ? "No reviews yet" : avgReview}</p>
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -109,15 +109,12 @@ const MovieDetail = ({ isLoggedIn }) => {
                 <Col>
                     <Card>
                         <Card.Body>
-                            <Card.Title>Actors</Card.Title>
-                            <Card.Text>
-                                <ul className="list-unstyled">
-                                    {/** How I think I wanna do linking to actor page */}
-                                    {actors.map((actor, index) => (
-                                        <Link to={`/actor/${actor.actorId}`}><li key={index}>{actor.fname} {actor.lname}</li></Link> 
-                                    ))}
-                                </ul>
-                            </Card.Text>
+                            <Card.Title>Actors</Card.Title>                            
+                            <ul className="list-unstyled">
+                                {actors.map((actor, index) => (
+                                    <Link to={`/actor/${actor.actorId}`}><li key={index}>{actor.fname} {actor.lname}</li></Link> 
+                                ))}
+                            </ul>                 
                         </Card.Body>
                     </Card>
                 </Col>
@@ -125,13 +122,11 @@ const MovieDetail = ({ isLoggedIn }) => {
                     <Card>
                         <Card.Body>
                             <Card.Title>Awards</Card.Title>
-                            <Card.Text>
-                                <ul className="list-unstyled">
-                                    {awards.map((award, index) => (
-                                        <li key={index}>{award.awardName}</li>
-                                    ))}
-                                </ul>
-                            </Card.Text>
+                            <ul className="list-unstyled">
+                                {awards.map((award, index) => (
+                                    <li key={index}>{award.awardName}</li>
+                                ))}
+                            </ul>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -142,13 +137,12 @@ const MovieDetail = ({ isLoggedIn }) => {
                                 <Card.Title>Reviews</Card.Title>
                                 <Button variant="secondary" onClick={isLoggedIn ? handleAddReview : () => navigate("/sign-in")}>Add review</Button>
                             </div>
-                            <Card.Text>
-                                <ul className="list-unstyled">
-                                    {reviews.map((review, index) => (
-                                        <li key={index}>{review.text}</li>
-                                    ))}
-                                </ul>
-                            </Card.Text>
+                            <Card.Subtitle>[Showing 20 most recent]</Card.Subtitle>
+                            <ul className="list-unstyled">
+                                {reviews.map((review, index) => (
+                                    <li key={index}>{review.text} - {review.rating}</li>
+                                ))}
+                            </ul>
                         </Card.Body>
                     </Card>
                 </Col>

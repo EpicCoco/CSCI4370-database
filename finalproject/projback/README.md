@@ -20,10 +20,20 @@ react frontend, backend
 
 
 Technologies you used including 3rd party libraries.
+SpringBoot - backend and requests
+Spring JDBC - interface with MySQL database
+MySQL Database - relational database
+React - front end JavaScript library
+postman - testing routes
 
 Include the database name, database username and the password you used for the JDBC connection.
+projback
+mysql -u root -p
+mysqlpass
 
 Provide three test username and password pairs from your demo data
 
-
-
+Username: password
+-- filmer5000: stanpass
+-- cinematic28: johnpass
+-- cinophile15: shawnpass
