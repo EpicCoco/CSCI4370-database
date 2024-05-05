@@ -79,9 +79,19 @@ select * from award where awardID = ?;
 -- This query gets all information from a review given by a specific user, it 
 -- shows the information from most recent to oldest reviews
 -- URL path: http://localhost:8080/api/user/reviews/{userId}
-select * from review where userId = ? order by postDate desc;
+select * from review where userId = ? order by postDate desc limit 20;
 
 -- Query description:
 -- This query gets all information from a user
 -- URL path: http://localhost:8080/api/user/reviews/{userId}
 select * from user where userId = ?;
+
+-- Query description:
+-- This query inserts username, password, firstName, lastName values into the database
+-- URL path: http://localhost:8080/api/register
+insert into user (username, password, firstName, lastName) values (?, ?, ?, ?);
+
+-- Query description:
+-- This query inserts rating, text, postDate, movieID, userID values into the review table
+-- URL path: http://localhost:8080/api/review
+insert into review (rating, text, postDate, movieID, userID) values (?, ?, ?, ?, ?);

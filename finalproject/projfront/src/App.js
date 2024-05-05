@@ -28,7 +28,7 @@ function App() {
   return (
     <UserContext.Provider value={[loggedIn, setLoggedIn, userData, setUserData]}>
       <BrowserRouter>
-        <TopNavbar isLoggedIn={loggedIn} />
+        <TopNavbar isLoggedIn={loggedIn} userData={userData} />
         <Routes>
           <Route index element={<Home />} />
           
