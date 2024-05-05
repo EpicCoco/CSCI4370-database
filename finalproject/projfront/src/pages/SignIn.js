@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 
 const SignIn = () => {
-  const [loggedIn, setLoggedIn, userData, setUserData] = useContext(UserContext);
+  const [setLoggedIn, setUserData] = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +39,7 @@ const SignIn = () => {
     
     axios.request(config)
     .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setLoggedIn(true);
         setUserData(response.data);
         navigate("/");

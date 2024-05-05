@@ -71,6 +71,7 @@ const UserDetail = ({ userData, setLoggedIn }) => {
                     <Card>
                         <Card.Body>
                             <Card.Title>Reviews</Card.Title>
+                            <Card.Subtitle>[Showing 20 most recent]</Card.Subtitle>
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {reviews.map((review, index) => (
