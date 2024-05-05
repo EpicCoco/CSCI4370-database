@@ -106,7 +106,7 @@ BEGIN
                 END,
                 FLOOR(RAND() * 10) + 1,
                 FLOOR(RAND() * 10) + 1,
-                DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 1826) DAY));
+                DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 730) DAY));
         SET i = i + 1;
     END WHILE;
 END$$
