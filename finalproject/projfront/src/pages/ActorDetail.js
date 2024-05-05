@@ -17,6 +17,22 @@ const ActorDetail = () => {
             .catch(err => {
                 console.error(`Error with actor ${id}`, err);
             });
+        axios.get(`http://localhost:8080/api/actor/${id}/movies`)
+            .then(res => {
+                //console.log("movie data", res.data);
+                setMovies(res.data);
+            })
+            .catch(err => {
+                console.error(`Error with movies under actor ${id}`, err);
+            });
+        axios.get(`http://localhost:8080/api/actor/${id}/awards`)
+            .then(res => {
+                //console.log("award data", res.data);
+                setAwards(res.data);
+            })
+            .catch(err => {
+                console.error(`Error with awards under actor ${id}`, err);
+            });
     }, [id]);
 
     return (
@@ -43,7 +59,7 @@ const ActorDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {movies.map((movie, index) => (
-                                        <Link to={`/movie/${movie.id}`} key={index}>
+                                        <Link to={`/movie/${movie.movieId}`} key={index}>
                                             <li>{movie.title}</li>
                                         </Link>
                                     ))}
@@ -59,7 +75,7 @@ const ActorDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {awards.map((award, index) => (
-                                        <li key={index}>{award.title}</li>
+                                        <li key={index}>{award.awardName}</li>
                                     ))}
                                 </ul>
                             </Card.Text>
