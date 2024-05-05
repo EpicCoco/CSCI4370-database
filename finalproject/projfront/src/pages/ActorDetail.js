@@ -13,8 +13,6 @@ const ActorDetail = () => {
         axios.get(`http://localhost:8080/api/actor/${id}`)
             .then(res => {
                 setActor(res.data);
-                setMovies(res.data.movies);
-                setAwards(res.data.awards);
             })
             .catch(err => {
                 console.error(`Error with actor ${id}`, err);
@@ -23,14 +21,14 @@ const ActorDetail = () => {
 
     return (
         <Container className="mt-4 justify-content-center">
-            <h1 className="mb-4">{actor.name ? actor.name : "Actor Detail"}</h1>
+            <h1 className="mb-4">{actor.fname ? `${actor.fname} ${actor.lname}` : "Actor Detail"}</h1>
             <Row className="mb-4">
                 <Col>
                     <Card>
                         <Card.Body>
                             <Card.Title>Actor Info</Card.Title>
                             <Card.Text>
-                                <p><strong>Full Name:</strong> {actor.fullName}</p>
+                                <p><strong>Full Name:</strong> {actor.fname} {actor.lname}</p>
                                 <p><strong>Age:</strong> {actor.age}</p>
                             </Card.Text>
                         </Card.Body>
@@ -61,7 +59,7 @@ const ActorDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {awards.map((award, index) => (
-                                        <li key={index}>{award}</li>
+                                        <li key={index}>{award.title}</li>
                                     ))}
                                 </ul>
                             </Card.Text>

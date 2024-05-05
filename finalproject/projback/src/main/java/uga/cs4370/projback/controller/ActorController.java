@@ -15,10 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
+@RequestMapping("/api/actor/")
 @CrossOrigin
 public class ActorController {
 
@@ -38,7 +39,7 @@ public class ActorController {
      * Get all movies with a certain actor in it
      * @throws SQLException 
      */
-    @GetMapping("/actors/{actorId}/movies")
+    @GetMapping("{actorId}/movies")
     public List<Movie> getMoviesWithActor(@PathVariable("actorId") String actorId) throws SQLException {
         
         Actor actor = actorService.getActorById(actorId);
@@ -52,7 +53,7 @@ public class ActorController {
      * Get all actors of a movie
      * 
      */
-    @GetMapping("/movies/{movieId}/actors")
+    @GetMapping("{movieId}/actors")
     public List<Actor> getActorsOfMovie(@PathVariable("movieId") String movieId) throws SQLException {
         Movie movie = movieService.getMovieById(movieId);
         List<Actor> actorsInMovie = actorService.getActorsByMovie(movie);
@@ -64,7 +65,7 @@ public class ActorController {
      * Get all awards for an actor
      * @throws SQLException 
      */
-    @GetMapping("/actors/{actorId}/awards")
+    @GetMapping("{actorId}/awards")
     public List<Award> getActorAwards(@PathVariable("actorId") String actorId) throws SQLException {
         
         Actor actor = actorService.getActorById(actorId);
@@ -79,7 +80,7 @@ public class ActorController {
      * 
      * Get actor’s info (name, age, etc)
      */
-    @GetMapping("/actors/{actorId}")
+    @GetMapping("{actorId}")
     public Actor getActorInfo(@PathVariable("actorId") String actorId) {
         try {
             Actor actor = actorService.getActorById(actorId);
