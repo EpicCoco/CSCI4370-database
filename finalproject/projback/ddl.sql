@@ -59,5 +59,7 @@ create table if not exists actorMovie (
     foreign key(movieID) references movie(movieID)
 );
 
--- TODO
--- Insert 1000 row Data into the Database @Codey help
+-- created indexes
+create index col1_index_01 on review(rating); 
+create index col1_index_02 on review(movieID); 
+
