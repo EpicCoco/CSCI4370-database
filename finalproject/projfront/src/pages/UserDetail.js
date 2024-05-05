@@ -18,6 +18,15 @@ const UserDetail = ({ userData }) => {
             .catch(err => {
                 console.error(`Error with user ${id}`, err);
             });
+
+        axios.get(`http://localhost:8080/api/user/reviews/${id}`)
+            .then(res => {
+                //console.log("user's reviews:", res.data);
+                setReviews(res.data);
+            })
+            .catch(err => {
+                console.error(`Error with user ${id} reviews`, err);
+            });
         
     }, [id]);
 
@@ -64,7 +73,7 @@ const UserDetail = ({ userData }) => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {reviews.map((review, index) => (
-                                        <li key={index}>hi</li>
+                                        <li key={index}>{review.text}</li>
                                     ))}
                                 </ul>
                             </Card.Text>
