@@ -31,4 +31,4 @@ Review Table: Reviews were generated via script.
     are 10 users and 10 movies in the database,
     userID and movieID were generated randomly in a
     range of 1 - 10. postDate was generated randomly,
-    ranging from Jan 1 2020 to Dec 31 2024.
+    ranging from Jan 1 2020 to Dec 31 2022.
