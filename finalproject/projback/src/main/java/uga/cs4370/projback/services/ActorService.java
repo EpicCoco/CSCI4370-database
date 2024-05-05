@@ -85,4 +85,29 @@ public class ActorService {
         return actor;
     }
 
+    //TODO
+    public List<Actor> getActorsByMovie(Movie movie) throws SQLException {
+        final String sql = "select a.* from actor a join actorMovie am on a.actorID = am.actorID where am.movieID = ?";
+        List<Actor> actors = new ArrayList<>();
+    
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, movie.getMovieId());
+    
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String actorId = rs.getString("actorID");
+                    String firstName = rs.getString("firstName");
+                    String lastName = rs.getString("lastName");
+                    String age = rs.getString("age");
+                    actors.add(new Actor(actorId, firstName, lastName, age));
+                }
+            }
+        }
+    
+        return actors;
+    }
+    
+    
+
 }

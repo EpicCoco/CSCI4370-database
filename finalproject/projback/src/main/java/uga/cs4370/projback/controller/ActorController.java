@@ -12,11 +12,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
+@CrossOrigin
 public class ActorController {
 
     private final ActorService actorService;
@@ -43,6 +46,17 @@ public class ActorController {
 
         return moviesWithActor;
         //return null;
+    }
+
+    /**
+     * Get all actors of a movie
+     * 
+     */
+    @GetMapping("/movies/{movieId}/actors")
+    public List<Actor> getActorsOfMovie(@PathVariable("movieId") String movieId) throws SQLException {
+        Movie movie = movieService.getMovieById(movieId);
+        List<Actor> actorsInMovie = actorService.getActorsByMovie(movie);
+        return actorsInMovie;
     }
 
     /**

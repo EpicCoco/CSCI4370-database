@@ -126,4 +126,22 @@ public class MovieService {
         return movies;
     }
 
+    public Movie getMovieById(String movieId) throws SQLException {
+        final String sql = "select * from movie where movieID = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, movieId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // MovieID Title Genre ReleaseDate
+                    String title = rs.getString("title");
+                    String genre = rs.getString("genre");
+                    String releaseDate = rs.getTimestamp("releaseDate").toString();
+                    return new Movie(movieId, title, genre, releaseDate);
+                }
+            }
+            return null; // If no movie found with the given ID
+        }
+    }    
+
 }

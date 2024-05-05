@@ -10,6 +10,7 @@ insert into movie (movieID, title, genre, releaseDate) values ('9', 'Shazam', 'A
 insert into movie (movieID, title, genre, releaseDate) values ('10', 'Endgame', 'Action', '2019-04-26');
 
 insert into actor (actorID, firstName, lastName, age) values ('1', 'Charlie', 'Day', 32);
+insert into actor (actorID, firstName, lastName, age) values ('91', 'codey', 'Bortellini', 41);
 insert into actor (actorID, firstName, lastName, age) values ('2', 'Charlie', 'Hunnam', 37);
 insert into actor (actorID, firstName, lastName, age) values ('3', 'Scarlett', 'Johansson', 39);
 insert into actor (actorID, firstName, lastName, age) values ('4', 'Jason', 'Shwartzman', 45);
@@ -31,6 +32,7 @@ insert into actor (actorID, firstName, lastName, age) values ('19', 'Robert', 'D
 insert into actor (actorID, firstName, lastName, age) values ('20', 'Chris', 'Evans', 39);
 
 insert into actorMovie (actorID, movieID) values ('1', '1');
+insert into actorMovie (actorID, movieID) values ('91', '1');
 insert into actorMovie (actorID, movieID) values ('2', '1');
 insert into actorMovie (actorID, movieID) values ('3', '2');
 insert into actorMovie (actorID, movieID) values ('4', '2');
@@ -50,6 +52,7 @@ insert into actorMovie (actorID, movieID) values ('17', '9');
 insert into actorMovie (actorID, movieID) values ('18', '9');
 insert into actorMovie (actorID, movieID) values ('19', '10');
 insert into actorMovie (actorID, movieID) values ('20', '10');
+
 
 insert into award (awardID, awardName, movieID, actorID) values ('1', 'Canadian Screen Award for Best Actor', '3', '6');
 insert into award (awardID, awardName, movieID) values ('2', 'Best Screenplay', '1');
@@ -78,7 +81,7 @@ DELIMITER $$
 CREATE PROCEDURE generate_reviews2()
 BEGIN
     DECLARE i INT DEFAULT 0;
-    WHILE i < 1000 DO
+    WHILE i < 10000 DO
         INSERT INTO review (reviewID, rating, text, userID, movieID)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,
