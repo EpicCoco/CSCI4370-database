@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import uga.cs4370.projback.services.UserService;
@@ -66,4 +68,15 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("/update/{userId}")
+    public void updateUser(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @PathVariable("userId") String userId) throws SQLException {
+        try {
+            userService.updateUser(firstName, lastName, userId);
+        } catch (SQLException exception) {
+            System.out.println("Error updating user with id: " + userId + ", SQL Exception");
+            System.out.println(exception.getMessage());
+        }
+    }
+
 }

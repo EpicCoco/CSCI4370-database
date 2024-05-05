@@ -6,15 +6,32 @@ import axios from "axios";
 const AwardDetail = () => {
     const { id } = useParams();
     const [award, setAward] = useState({});
-    const [actors, setActors] = useState([]);
-    const [movies, setMovies] = useState([]);
+    const [actor, setActor] = useState([]);
+    const [movie, setMovie] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/award/${id}`)
+        axios.get(`http://localhost:8080/api/award/info/${id}`)
             .then(res => {
                 setAward(res.data);
-                setActors(res.data.actors);
-                setMovies(res.data.movies);
+                //console.log("award", res.data);
+
+                axios.get(`http://localhost:8080/api/movie/info/${res.data.movieId}`)
+                    .then(res => {
+                        setMovie(res.data);
+                        //console.log("movie", res.data);
+                    })
+                    .catch(err => {
+                        console.error(`Error with movie ${id}`, err);
+                    });
+
+                axios.get(`http://localhost:8080/api/actor/${res.data.actorId}`)
+                    .then(res => {
+                        setActor(res.data);
+                        //console.log("actor", res.data);
+                    })
+                    .catch(err => {
+                        console.error(`Error with actor ${id}`, err);
+                    });
             })
             .catch(err => {
                 console.error(`Error with award ${id}`, err);
@@ -23,44 +40,15 @@ const AwardDetail = () => {
 
     return (
         <Container className="mt-4 justify-content-center">
-            <h1 className="mb-4">{award.name ? award.name : "Award Detail"}</h1>
+            <h1 className="mb-4">{award.awardName ? award.awardName : "Award Detail"}</h1>
             <Row className="mb-4">
                 <Col>
                     <Card>
                         <Card.Body>
                             <Card.Title>Award Info</Card.Title>
                             <Card.Text>
-                                <p><strong>Description:</strong> {award.description}</p>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Actors</Card.Title>
-                            <Card.Text>
-                                <ul className="list-unstyled">
-                                    {actors.map((actor, index) => (
-                                        <li key={index}>{actor}</li>
-                                    ))}
-                                </ul>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Movies</Card.Title>
-                            <Card.Text>
-                                <ul className="list-unstyled">
-                                    {movies.map((movie, index) => (
-                                        <li key={index}>{movie}</li>
-                                    ))}
-                                </ul>
+                                <p><strong>Movie:</strong> {movie.title}</p>
+                                {actor.fname ? <p><strong>Actor:</strong> {actor.fname} {actor.lname}</p> : <></>}
                             </Card.Text>
                         </Card.Body>
                     </Card>

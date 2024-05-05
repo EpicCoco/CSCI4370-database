@@ -75,7 +75,9 @@ const ActorDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {awards.map((award, index) => (
-                                        <li key={index}>{award.awardName}</li>
+                                        <Link to={`/award/${award.awardId}`} key={index}>
+                                            <li>{award.awardName}</li>
+                                        </Link>
                                     ))}
                                 </ul>
                             </Card.Text>

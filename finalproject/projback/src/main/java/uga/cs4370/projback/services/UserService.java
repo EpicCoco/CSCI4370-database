@@ -174,5 +174,21 @@ public boolean authenticate(String username, String password) throws SQLExceptio
         }
     }
 
+    public boolean updateUser(String firstName, String lastName, String userId) throws SQLException {
+        final String sql = "update user set firstName = ?, lastName = ? where userID = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, firstName);
+                pstmt.setString(2, lastName);
+                pstmt.setString(3, userId);
+                int numChanged = pstmt.executeUpdate();
+                if (numChanged > 0) return true;
+                return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     
 }
