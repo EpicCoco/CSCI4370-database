@@ -34,6 +34,24 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
+    public List<User> getAllUsers() throws SQLException {
+        final String sql = "select * from user";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String userId = rs.getString("userID");
+                    String username = rs.getString("username");
+                    String firstName = rs.getString("firstName");
+                    String lastName = rs.getString("lastName");
+                    users.add(new User(userId, username, firstName, lastName));
+                }
+            }
+            return users;
+        }
+    }
+
 
 public boolean authenticate(String username, String password) throws SQLException {
         // This query gets all users OTHER THAN the user passed in by "username" parameter
@@ -63,7 +81,7 @@ public boolean authenticate(String username, String password) throws SQLExceptio
                         String lastName = rs.getString("lastName");
 
                         // Initialize and retain the logged in user.
-                        loggedInUser = new User(userId, firstName, lastName);
+                        loggedInUser = new User(userId, username, firstName, lastName);
                     }
                     return isPassMatch;
                 }
@@ -153,10 +171,14 @@ public boolean authenticate(String username, String password) throws SQLExceptio
             try (ResultSet rs = pstmt.executeQuery()) {
                 rs.next();
                 String userIdStr = Integer.toString(userId);
+                String username = rs.getString("username");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
-                return new User(userIdStr, firstName, lastName);
+                return new User(userIdStr, username, firstName, lastName);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

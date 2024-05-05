@@ -39,8 +39,9 @@ const SignIn = () => {
     
     axios.request(config)
     .then((response) => {
-        console.log(JSON.stringify(response.data));
+        console.log(response.data);
         setLoggedIn(true);
+        setUserData(response.data);
         navigate("/");
 
     })

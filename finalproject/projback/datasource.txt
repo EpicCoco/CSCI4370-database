@@ -1,6 +1,34 @@
-The source of our data:
+Movie Table: Insert statements were manually written.
+    Schema: 10 real movies were chosen, and their related
+    titles, genres and release dates were used.
 
+Actor Table: Insert statements were manually written.
+    Schema: For each movie, 2 actors were chosen from the
+    cast. Their real first/last name were used, and age
+    was chosen at random.
 
-- The review data was generated via script
-- All other data was manually thought of beforehand and inserted via insert statements
+ActorMovie Table: Insert statements were manually written.
+    Schema: The movieID/actorID pairings for each of the
+    20 movie/actor pairs were added.
 
+Award Table: Insert statements were manually written.
+    Schema: 10 awards were added. For 8 of the awards,
+    a random actor/movie pairing was chosen. For the
+    remaining 2, no actor was associated with the
+    award, and a random movie was chosen. Real award
+    names were chosen arbitrarily for each award.
+
+User Table: Insert statements were manually written.
+    Schema: Username, first/last name, and password
+    were all chosen arbitrarily for each of the 10
+    insert statements.
+
+Review Table: Reviews were generated via script.
+    Schema: ReviewID was incremented by 1 for each
+    iteration. Rating was generated randomly in a
+    range of 1 - 5. Text was chosen randomly from
+    a set of 10 prewritten reviews. Given that there
+    are 10 users and 10 movies in the database,
+    userID and movieID were generated randomly in a
+    range of 1 - 10. postDate was generated randomly,
+    ranging from Jan 1 2020 to Dec 31 2024.

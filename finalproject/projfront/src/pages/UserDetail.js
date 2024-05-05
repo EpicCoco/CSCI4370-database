@@ -11,12 +11,13 @@ const UserDetail = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/${id}`)
             .then(res => {
+                console.log(res.data);
                 setUser(res.data);
-                setReviews(res.data.reviews);
             })
             .catch(err => {
                 console.error(`Error with user ${id}`, err);
             });
+        
     }, [id]);
 
     return (
@@ -28,7 +29,7 @@ const UserDetail = () => {
                         <Card.Body>
                             <Card.Title>User Info</Card.Title>
                             <Card.Text>
-                                <p><strong>Full Name:</strong> {user.fullName}</p>
+                                <p><strong>Full Name:</strong> {user.fname} {user.lname}</p>
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -42,7 +43,7 @@ const UserDetail = () => {
                             <Card.Text>
                                 <ul className="list-unstyled">
                                     {reviews.map((review, index) => (
-                                        <li key={index}>{review}</li>
+                                        <li key={index}>hi</li>
                                     ))}
                                 </ul>
                             </Card.Text>

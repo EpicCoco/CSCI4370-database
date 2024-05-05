@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 import uga.cs4370.projback.ProjbackApplication;
+import uga.cs4370.projback.models.User;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class LoginController {
      * See notes in HomeController.java regardig /createpost form submission handler.
      */
     @PostMapping
-    public ResponseEntity<String> login(@RequestParam("username") String username,
+    public ResponseEntity<User> login(@RequestParam("username") String username,
             @RequestParam("password") String password) {
         boolean isAuthenticated = false;
 
@@ -56,7 +57,7 @@ public class LoginController {
         }
         if (isAuthenticated) {
             // Redirect to home page if authentication is successful.
-            return ResponseEntity.ok("Successfully logged in");
+            return ResponseEntity.ok(userService.getLoggedInUser());
         } else {
             // Redirect back to the login page with an error message if authentication fails.
             return ResponseEntity.badRequest().build();
