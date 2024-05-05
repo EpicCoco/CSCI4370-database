@@ -88,7 +88,7 @@ DELIMITER $$
 CREATE PROCEDURE generate_reviews()
 BEGIN
     DECLARE i INT DEFAULT 0;
-    WHILE i < 10000 DO
+    WHILE i < 100000 DO
         INSERT INTO review (reviewID, rating, text, userID, movieID, postDate)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,

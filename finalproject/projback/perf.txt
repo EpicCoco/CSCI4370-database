@@ -1,16 +1,20 @@
 Statements used to create indexes:
 
-create index col1_index_01 on review(movieID); 
-create index col1_index_02 on review(userID); 
-
-Time consumption: 
+create index col1_index_01 on review(rating); 
+create index col1_index_02 on review(movieID); 
 
 Queries that were affected by the indexes:
-"select * from review where userID = ? order by postDate desc"
-"select * from review where movieID = ? order by postDate desc"
+Query 1: "select avg(rating) from review where movieID = ?";
+Query 2: "select * from review where movieID = ?";
 
-Under each query provide time consumption before and after adding the index. 
+Time consumption before and after adding the index. 
+Time consumption Query 1: 
+Before - 0.09 sec
+After - 0.03 sec
 
+Time consumption Query 2: 
+Before - 0.15 sec
+After - 0.04 sec
 
 
 
