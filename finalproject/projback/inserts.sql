@@ -73,13 +73,16 @@ insert into user (userID, username, firstName, lastName, password) values ('8', 
 insert into user (userID, username, firstName, lastName, password) values ('9', '657films', 'Scotty', 'Smalls', 'sandlotbest');
 insert into user (userID, username, firstName, lastName, password) values ('10', '3000tron', 'Timmy', 'Timmons', 'yourkillingmesmalls');
 
+insert into movie (movieID, title, genre, releaseDate) values ('11', 'TEST', 'Test', '2019-04-26');
+insert into review (rating, text, userID, movieID) values ("1", "lollol", "3", "11");
+
 DELIMITER $$
 
-CREATE PROCEDURE generate_reviews2()
+CREATE PROCEDURE generate_reviews9()
 BEGIN
     DECLARE i INT DEFAULT 0;
     WHILE i < 1000 DO
-        INSERT INTO review (reviewID, rating, text, userID, movieID)
+        INSERT INTO review (reviewID, rating, text, userID, movieID, postDate)
         VALUES (i + 1,
                 FLOOR(RAND() * 5) + 1,
                 CASE FLOOR(RAND() * 9)
@@ -95,11 +98,12 @@ BEGIN
                     ELSE 'Move wus bad. Plese write bettre script next ime…'
                 END,
                 FLOOR(RAND() * 10) + 1,
-                FLOOR(RAND() * 10) + 1);
+                FLOOR(RAND() * 10) + 1,
+                DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 1826) DAY));
         SET i = i + 1;
     END WHILE;
 END$$
 
 DELIMITER ;
 
-CALL generate_reviews();
+CALL generate_reviews9();
