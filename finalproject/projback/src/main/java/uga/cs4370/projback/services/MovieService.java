@@ -61,7 +61,7 @@ public class MovieService {
     }
 
     public List<Review> getMovieReviews(String movieId) throws SQLException {
-        final String sql = "select * from review where movieID = ?";
+        final String sql = "select * from review where movieID = ? limit 20";
         List<Review> reviews = new ArrayList<Review>();
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
