@@ -1,4 +1,4 @@
-# Database Project
+# Movie Database
 
 ### Members: Ryan Albright, Codey Borelli, Zach Bloodworth, Jude Mullins
 ### Contributions
