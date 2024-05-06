@@ -1,40 +1,53 @@
-Members: Ryan Albright, Codey Borelli, Zach Bloodworth, Jude Mullins
+# Database Project
 
-ryan: 
-Think up meaningful ways to implement indexing (at least 2)  
-Movies given a certain actor (actor page)
-Actors with 10+ awards (or return all ratings for an actor/movie) (actor page) - Ryan
+### Members: Ryan Albright, Codey Borelli, Zach Bloodworth, Jude Mullins
+### Contributions
+Zach
+- ReviewController/Service
+- MovieController/Service
+- data.sql
+- datasource.txt
 
-Jude: 
-Overall review rating given a movie (movie page)
-JOIN, Aggregate (avg)
-Present every review given by a user (user page)
+Ryan
+- Indexing
+- actorController/service
+- ddl.sql
+- security.txt
+- queries.sql
 
-Zach:
-Award list given movie/actor (award page) 
-Present every review given a movie (movie page)
+Codey
+- Served as project team lead
+- Front end, Integrate frontend with back
+- Work on backend controllers/services
+- prelim.pdf
+- 
+Jude
+- awardController/service
+- bcnf.txt
+- finalized ER diagram
+- models
+- db_design.pdf
 
-Codey:
-Served as project team lead
-Create frontend in React
-Assist with creating routes/services on backend
 
+### Technologies you used including 3rd party libraries.
+- SpringBoot - backend and requests
+- Spring JDBC - interface with MySQL database
+- MySQL Database - relational database
+- React - front end JavaScript library
+- React Bootstrap - prebuilt React components
+- Axios - asynchronous requests for JS
+- Docker - container for database
+  
 
-Technologies you used including 3rd party libraries.
-SpringBoot - backend and requests
-Spring JDBC - interface with MySQL database
-MySQL Database - relational database
-React - front end JavaScript library
-postman - testing routes
+### Include the database name, database username and the password you used for the JDBC connection
 
-Include the database name, database username and the password you used for the JDBC connection.
-projback
-mysql -u root -p
-mysqlpass
+- name: projback
+- Username: root
+- Password: mysqlpass
 
-Provide three test username and password pairs from your demo data
-
+### Provide three test username and password pairs from your demo data
+ 
 Username: password
--- filmer5000: stanpass
--- cinematic28: johnpass
--- cinophile15: shawnpass
+- filmer5000: stanpass
+- cinematic28: johnpass
+- cinophile15: shawnpass
