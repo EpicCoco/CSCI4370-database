@@ -15,6 +15,7 @@ const MovieDetail = ({ isLoggedIn }) => {
     const [awards, setAwards] = useState(['Best Picture', 'Best Director', 'Best Actor']);
     const [reviews, setReviews] = useState(['I liked it']);
     const [avgReview, setAvgReview] = useState(0.0);
+    const [avgGenre, setAvgGenre] = useState(0.0);
 
     const handleAddReview = () => {
         //go to review with the movie's info passed thru
@@ -30,6 +31,26 @@ const MovieDetail = ({ isLoggedIn }) => {
         .then(res => {
             //console.log("movie data", res.data);
             setMovie(res.data);
+            let values = {
+                genre: res.data.genre,
+            };
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:8080/api/movie/genrecount`,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                params: values
+            };
+            axios.request(config)
+            .then((response) => {
+                //console.log("success", response);
+                setAvgGenre(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         })
         .catch(err => {
             console.error(`Error with movie ${id}`, err);
@@ -99,6 +120,7 @@ const MovieDetail = ({ isLoggedIn }) => {
                             <Card.Text>
                                 <p><strong>Title:</strong> {movie.title}</p>
                                 <p><strong>Genre:</strong> {movie.genre}</p>
+                                <p><strong>Number of reviews for genre {movie.genre}: </strong> {avgGenre}</p>
                                 <p><strong>Average Review:</strong> {avgReview === 0 ? "No reviews yet" : avgReview}</p>
                             </Card.Text>
                         </Card.Body>
